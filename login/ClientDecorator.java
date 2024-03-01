@@ -1,3 +1,5 @@
+package login;
+
 public abstract class ClientDecorator implements Client {
     protected Client decoratedClient;
 

@@ -1,6 +1,6 @@
+package login;
 
-
-	public class nonFacultyClient extends ClientDecorator {
+public class nonFacultyClient extends ClientDecorator {
 	    public nonFacultyClient(Client decoratedClient) {
 	        super(decoratedClient);
 	    }

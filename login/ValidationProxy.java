@@ -1,3 +1,5 @@
+package login;
+
 public class ValidationProxy implements Client {
     private Client realClient;
 

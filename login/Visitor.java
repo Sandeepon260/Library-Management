@@ -1,5 +1,7 @@
-public class FacultyClient extends ClientDecorator {
-    public FacultyClient(Client decoratedClient) {
+package login;
+
+public class Visitor extends ClientDecorator {
+    public Visitor(Client decoratedClient) {
         super(decoratedClient);
     }
 

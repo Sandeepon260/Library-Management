@@ -11,7 +11,7 @@ class CD extends LibraryItem {
     }
 
     @Override
-    public String details() {
+    public String getDetails() {
         return "CD: " + title + " by " + artist + ". Location: " + getLocation() + ". Purchasable: " + isPurchasable();
     }
 }

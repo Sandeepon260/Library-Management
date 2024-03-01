@@ -10,7 +10,7 @@ class Book extends LibraryItem {
     }
 
     @Override
-    public String details() {
+    public String getDetails() {
         return "Book: " + title + " by " + author + ". Location: " + getLocation() + ". Purchasable: " + isPurchasable();
     }
 }

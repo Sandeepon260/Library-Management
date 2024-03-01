@@ -11,7 +11,7 @@ class Magazine extends LibraryItem {
     }
 
     @Override
-    public String details() {
+    public String getDetails() {
         return "Magazine: " + title + ". Location: " + getLocation() + ". Purchasable: " + isPurchasable();
     }
 }

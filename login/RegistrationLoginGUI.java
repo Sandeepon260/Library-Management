@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 
+//@author: Mehregan Mesgari
+
 public class RegistrationLoginGUI {
 
     private JFrame frame;

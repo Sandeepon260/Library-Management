@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
+//@author: Mehregan Mesgari
+
 public class RegistrationSystem {
     public static void main(String[] args) {
     	

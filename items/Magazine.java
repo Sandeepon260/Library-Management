@@ -1,5 +1,7 @@
 package items;
 
+//@author: Mehregan Mesgari
+
 class Magazine extends LibraryItem {
     private String title;
     private String publisher;

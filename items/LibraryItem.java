@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+//@author: Mehregan Mesgari
+
 public abstract class LibraryItem {
     private static int nextId = 1;
     protected int itemId; // Instance variable

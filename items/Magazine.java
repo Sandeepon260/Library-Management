@@ -5,7 +5,7 @@ class Magazine extends LibraryItem {
     private String publisher;
 
     public Magazine(String location, boolean purchasable, String title,String publisher) {
-        super(location, purchasable);
+        super("Magazine",location, purchasable);
         this.title = title;
         this.publisher = publisher; 
     }
@@ -14,4 +14,11 @@ class Magazine extends LibraryItem {
     public String getDetails() {
         return "Magazine: " + title + ". Location: " + getLocation() + ". Purchasable: " + isPurchasable();
     }
+    public String getTitle() {
+    	return this.title;
+    }
+    public String getPublisher() {
+    	return this.publisher;
+    }
+	
 }

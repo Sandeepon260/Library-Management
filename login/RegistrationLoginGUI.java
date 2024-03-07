@@ -1,11 +1,9 @@
 package login;
-import javax.swing.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
-
-//@author: Mehregan Mesgari
 
 public class RegistrationLoginGUI {
 
@@ -28,7 +26,7 @@ public class RegistrationLoginGUI {
         frame.setLayout(new GridLayout(5, 2));
 
         frame.add(new JLabel("User Type:"));
-        String[] userTypes = {"Student", "Faculty", "Non-Faculty", "Visitor"};
+        String[] userTypes = {"Student", "Faculty", "Non-Faculty", "Visitor", "Management"}; // Added Management
         userTypeCombo = new JComboBox<>(userTypes);
         frame.add(userTypeCombo);
 
@@ -47,7 +45,6 @@ public class RegistrationLoginGUI {
         frame.add(loginButton);
 
         registerButton.addActionListener(this::register);
-
         loginButton.addActionListener(this::login);
 
         frame.setVisible(true);
@@ -99,6 +96,8 @@ public class RegistrationLoginGUI {
                 return new nonFacultyClient(new BasicClient());
             case "Visitor":
                 return new Visitor(new BasicClient());
+            case "Management":
+                return new managementClient(new BasicClient()); // Creating a new ManagementClient
             default:
                 return new BasicClient();
         }

@@ -13,7 +13,8 @@ public abstract class LibraryItem {
     protected String itemType;
     protected String location;
     protected boolean purchasable;
-
+    protected String title;
+    
     public LibraryItem(String itemType, String location, boolean purchasable) {
         this.itemId = nextId++; 
         this.itemType = itemType;
@@ -22,7 +23,10 @@ public abstract class LibraryItem {
     }
 
  
-
+    public String getTitle() {
+    	return this.title;
+    }
+    
     public abstract String getDetails();
 
     public int getItemId() {

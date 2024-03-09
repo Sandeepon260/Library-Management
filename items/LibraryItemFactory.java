@@ -46,5 +46,7 @@ public class LibraryItemFactory {
             System.err.println("Error writing to the database: " + e.getMessage());
         }
     }
+    
+    
 }
 

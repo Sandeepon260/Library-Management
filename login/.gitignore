@@ -11,3 +11,5 @@
 /BasicClient.class
 /management.class
 /managementClient.class
+/NewsletterContentObserver.class
+/NewsletterContentPublisher.class

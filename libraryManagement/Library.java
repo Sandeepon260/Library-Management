@@ -9,13 +9,14 @@ import java.util.List;
 
 public class Library {
     private static final String CSV_FILE_PATH = "library.csv";
+    static List<LibraryItem> items=new ArrayList<LibraryItem>();
 
     public Library() {
         createCsvFile();
     }
 
     public void addItem(String itemType, String title, String additionalInfo) {
-        LibraryItem item = LibraryItemFactory.createItem(itemType, title, false, additionalInfo, additionalInfo);
+        items.add(LibraryItemFactory.createItem(itemType, title, false, title, additionalInfo));
     
      
     }
@@ -81,6 +82,22 @@ public class Library {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
     }
-    
+
+    public void returnItem(int itemId) {
+        LibraryItem item = findItemById(itemId);
+        if (item != null) {
+            item.setIsPurchasable(true);
+            System.out.println("Item with ID " + itemId + " returned.");
+        }
+    }
+
+    public LibraryItem findItemById(int itemId) {
+        for (LibraryItem item : items) {
+            if (item.getItemId() == itemId) {
+                return item;
+            }
+        }
+        return null;
+    }    
     
 }

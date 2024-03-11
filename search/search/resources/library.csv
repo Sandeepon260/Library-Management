@@ -1,0 +1,5 @@
+ID,Type,Title.Author,Purchasable,Location
+1,Book,Harry Potter and the Philosopher's Stone,J.K. Rowling,TRUE,0
+2,Magazine,National Geographic,Travel,FALSE,0
+3,CD,Thriller,Michael Jackson,FALSE,0
+4,Book,asdf,sandyh,TRUE,0

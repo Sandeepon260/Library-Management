@@ -28,10 +28,6 @@ public abstract class LibraryItem {
         this.itemType = itemType;
         this.location = location;
         this.purchasable = purchasable;
-        this.title = title; 
-    }
-        
-        // req 8 - fardad
         this.borrowerEmail = ""; // Initialize borrowerEmail to null
         this.title = title; // added 
     }

@@ -84,7 +84,6 @@ public abstract class LibraryItem {
                 itemId, itemType, location, purchasable, title, isRented, rentalDate, dueDate, rentedBy);
     }
 
-    public abstract String getDetails();
 
  //    // req 8 - fardad
  //     @Override

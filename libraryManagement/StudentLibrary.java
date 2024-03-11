@@ -2,6 +2,7 @@ package libraryManagement;
 
 import java.util.HashMap;
 import java.util.Map;
+import items.Book;
 import items.LibraryItem;
 
 public class StudentLibrary extends Library {

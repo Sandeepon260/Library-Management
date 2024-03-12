@@ -146,7 +146,6 @@ public class LibraryGUI {
 
                     JOptionPane.showMessageDialog(frame, "Book '" + titleToReturn + "' returned successfully.");
 
-                    studentLibrary.display();
 
                 } else {
 
@@ -232,7 +231,6 @@ public class LibraryGUI {
 
                 "student.");
 
-        studentLibrary.display();
 
         // Clear the fields after adding the item
 
@@ -270,7 +268,6 @@ public class LibraryGUI {
 
             bookToBorrow.setBorrowerEmail(emailField.getText());
 
-            studentLibrary.display();
 
             JOptionPane.showMessageDialog(frame, "Book borrowed successfully!");
 

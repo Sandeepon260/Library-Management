@@ -3,8 +3,10 @@ package login;
 //@author: Mehregan Mesgari
 
 public class FacultyClient extends ClientDecorator {
+	protected String type; 
     public FacultyClient(Client decoratedClient) {
         super(decoratedClient);
+        
     }
 
     @Override

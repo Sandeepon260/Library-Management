@@ -5,6 +5,7 @@ package login;
 public class managementClient extends ClientDecorator {
   public managementClient(Client decoratedClient) {
       super(decoratedClient);
+      this.type = "management";
   }
 
   @Override

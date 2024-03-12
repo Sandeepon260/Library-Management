@@ -1,3 +1,6 @@
-1,Book,Harry Potter and the Philosopher's Stone,J.K. Rowling, fantasy,J.K. Rowling, fantasy,true
-2,Magazine,National Geographic,Travel, Nature,Travel, Nature,false
-3,CD,Thriller,Michael Jackson, pop,Michael Jackson, pop,false
+1,Harry Potter and the Philosopher's Stone,J.K. Rowling, fantasy,false
+2,National Geographic,,false
+3,Thriller,,false
+1,Harry Potter,J.K. Rowling,true
+2,National Geographic,,false
+3,Thriller,,true

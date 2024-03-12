@@ -4,6 +4,7 @@ package login;
 
 public abstract class ClientDecorator implements Client {
     protected Client decoratedClient;
+    protected String type; 
 
     public ClientDecorator(Client decoratedClient) {
         this.decoratedClient = decoratedClient;
@@ -17,5 +18,8 @@ public abstract class ClientDecorator implements Client {
     @Override
     public String getPassword(String email) {
         return decoratedClient.getPassword(email);
+    }
+    public String getType() {
+    	return type; 
     }
 }

@@ -5,6 +5,7 @@ package login;
 public class StudentClient extends ClientDecorator {
     public StudentClient(Client decoratedClient) {
         super(decoratedClient);
+        this.type = "Student";
     }
 
     @Override

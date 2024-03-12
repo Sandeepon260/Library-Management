@@ -51,40 +51,68 @@ public class RegistrationLoginGUI {
     }
 
     private void register(ActionEvent e) {
-        String email = emailField.getText();
-        String password = new String(passwordField.getPassword());
+        String email = emailField.getText().trim();
+        String password = new String(passwordField.getPassword()).trim();
         String userType = (String) userTypeCombo.getSelectedItem();
+
+        // Email validation for "@" presence and ".com" ending
+        if (!email.contains("@") || !email.endsWith(".com")) {
+            JOptionPane.showMessageDialog(frame, "Invalid email format", "Registration Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method without attempting to register
+        }
+
         // Check if the user already exists
         if (userExists(email)) {
             JOptionPane.showMessageDialog(frame, "User already exists. Registration failed.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Exit the method without attempting to register
         }
-        // Integrate with Client registration logic
-        Client client = getClient(userType);
-        if (client != null) {
-            client.register(email, password);
-            try (FileWriter fw = new FileWriter(CSV_FILE, true);
-                 BufferedWriter bw = new BufferedWriter(fw);
-                 PrintWriter out = new PrintWriter(bw)) {
-                out.println(email + "," + password + "," + userType); // Include userType in the entry
-                JOptionPane.showMessageDialog(frame, "Registration successful.");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(frame, "Failed to register user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        
+        // Write the new user's details to the CSV file
+        try (FileWriter fw = new FileWriter(CSV_FILE, true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println(email + "," + password + "," + userType); // Include userType in the entry
+            JOptionPane.showMessageDialog(frame, "Registration successful.", "Registration", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(frame, "Failed to register user: " + ex.getMessage(), "Registration Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     private void login(ActionEvent e) {
         String email = emailField.getText();
         String password = new String(passwordField.getPassword());
-        // Integration with Client login logic
-        BasicClient client = new BasicClient();
-        if (password.equals(client.getPassword(email))) {
-            JOptionPane.showMessageDialog(frame, "Login successful.");
-        } else {
+        
+        // This method needs to be defined to check the password and get user type from CSV
+        String userType = getUserTypeFromCSV(email, password);
+        
+        if (userType == null) {
             JOptionPane.showMessageDialog(frame, "Login failed: Incorrect email or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        } else if (!userType.equals("Management")) {
+            JOptionPane.showMessageDialog(frame, "Login successful.");
+            frame.dispose(); // Close the login window
+            new DashboardGUI(); // Open the DashboardGUI for non-Management users
         }
+        // If the user is of type Management, nothing is shown as per the requirement
     }
+
+    private String getUserTypeFromCSV(String email, String password) {
+        try (BufferedReader br = new BufferedReader(new FileReader("users.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] userDetails = line.split(",");
+                // Check if the CSV line has at least three elements: email, password, and userType
+                if (userDetails.length > 2 && userDetails[0].equals(email) && userDetails[1].equals(password)) {
+                    return userDetails[2]; // Return the userType
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null; // Return null if user not found, password is incorrect, or entry is malformed
+    }
+
+
 
     private Client getClient(String userType) {
         switch (userType) {

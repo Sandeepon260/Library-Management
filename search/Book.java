@@ -3,7 +3,7 @@ package search;
 class Book extends LibraryItem {
     private String title;
     private String author;
-    public String genre;
+    
 
     public Book(String location, boolean purchasable, String title, String author) {
         super("Book",location, purchasable);

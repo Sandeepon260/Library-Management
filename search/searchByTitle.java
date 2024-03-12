@@ -8,16 +8,18 @@ import java.util.Map;
 public class searchByTitle implements SearchStrategy{
 
 	@Override
-	public Book matchSame(List<Book> books, String search) {
+	public List<Book> search(List<Book> books, String search) {
+		List<Book> result = new ArrayList<>();
 		for (Book book: books) {
 			if(search.equalsIgnoreCase(book.getTitle())) {
-				return book;
+				result.add(book);
+				return result;
 			}
 		}
-		return null;
+		return result;
 	}
 
-	@Override
+	
 	public List<Book> recommendations(List<Book> books, String search) {
 		// TODO Auto-generated method stub
 		// Getting the words from the search in a list 

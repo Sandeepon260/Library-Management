@@ -3,3 +3,6 @@
 /SearchStrategy.class
 /searchByID.class
 /searchByTitle.class
+/SearchGUI.class
+/recommendations.class
+/SearchContext.class

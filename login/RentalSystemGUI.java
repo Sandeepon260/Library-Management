@@ -19,64 +19,78 @@ public class RentalSystemGUI {
         rentalFrame = new JFrame("Rental System");
         availableItemsModel = new DefaultListModel<>();
         rentedItemsModel = new DefaultListModel<>();
-        // Add mock data to models or fetch from backend
-        // availableItemsModel.addElement("Book 1");
-        // rentedItemsModel.addElement("Book 2");
         availableItemsList = new JList<>(availableItemsModel);
         rentedItemsList = new JList<>(rentedItemsModel);
         rentButton = new JButton("Rent Selected Item");
         returnButton = new JButton("Return Selected Item");
         viewOverdueButton = new JButton("View Overdue Items");
+
+        addMockData(); // Add mock data for demonstration purposes
+
+        setupLayout();
+        addListeners();
     }
 
-    public void displayGUI() {
-        // Layout and components for rental system
+    private void addMockData() {
+        // Mock data for demonstration. Replace with dynamic data as needed.
+        availableItemsModel.addElement("Book 1");
+        availableItemsModel.addElement("Magazine 1");
+        availableItemsModel.addElement("CD 1");
+    }
+
+    private void setupLayout() {
         rentalFrame.setLayout(new BorderLayout());
         rentalFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         rentalFrame.setSize(800, 600);
 
-        // Available items panel
         JPanel availablePanel = new JPanel();
         availablePanel.setBorder(BorderFactory.createTitledBorder("Available Items"));
         availablePanel.add(new JScrollPane(availableItemsList));
 
-        // Rented items panel
         JPanel rentedPanel = new JPanel();
         rentedPanel.setBorder(BorderFactory.createTitledBorder("Rented Items"));
         rentedPanel.add(new JScrollPane(rentedItemsList));
 
-        // Buttons panel
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
         buttonPanel.add(rentButton);
         buttonPanel.add(returnButton);
         buttonPanel.add(viewOverdueButton);
 
-        // Adding action listeners
-        rentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Logic for renting an item
-            }
-        });
-
-        returnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Logic for returning an item
-            }
-        });
-
-        viewOverdueButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Logic for viewing overdue items
-            }
-        });
-
         rentalFrame.add(availablePanel, BorderLayout.WEST);
         rentalFrame.add(rentedPanel, BorderLayout.EAST);
         rentalFrame.add(buttonPanel, BorderLayout.SOUTH);
+    }
 
+    private void addListeners() {
+        rentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = availableItemsList.getSelectedValue();
+                if (selected != null && !selected.isEmpty()) {
+                    openPaymentForm(selected);
+                } else {
+                    JOptionPane.showMessageDialog(rentalFrame, "Please select an item to rent.");
+                }
+            }
+        });
+
+       
+    }
+
+    public void displayGUI() {
         rentalFrame.setVisible(true);
+    }
+
+    private void openPaymentForm(String item) {
+        PaymentForm paymentForm = new PaymentForm(item);
+        paymentForm.display();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new RentalSystemGUI().displayGUI();
+            }
+        });
     }
 }

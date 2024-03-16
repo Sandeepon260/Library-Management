@@ -11,21 +11,25 @@ public class PaymentForm {
     private JComboBox<String> paymentMethodComboBox;
     private JButton confirmButton;
     private String item;
+    private RentalSystemGUI rentalSystem; 
 
-    public PaymentForm(String item) {
-        this.item = item;
+    public PaymentForm(RentalSystemGUI rentalSystem, String item) {
+        this.rentalSystem = rentalSystem; 
+        this.item = item; 
         paymentFrame = new JFrame("Payment Form");
         itemLabel = new JLabel("Item: " + item);
-        paymentMethodComboBox = new JComboBox<>(new String[]{"Credit Card", "Debit Card", "PayPal", "Mobile Wallet"});
-        confirmButton = new JButton("Confirm Payment");
+        paymentMethodComboBox = new JComboBox<>(new String[]{"Credit Card", "Debit Card", "PayPal", "Mobile Wallet"}); 
+        confirmButton = new JButton("Confirm Payment"); 
+        setupLayout(); 
     }
 
-    public void display() {
-        paymentFrame.setLayout(new GridLayout(3, 1));
-        paymentFrame.add(itemLabel);
-        paymentFrame.add(paymentMethodComboBox);
-        paymentFrame.add(confirmButton);
+    private void setupLayout() {
+        paymentFrame.setLayout(new GridLayout(3, 1)); 
+        paymentFrame.add(itemLabel); 
+        paymentFrame.add(paymentMethodComboBox); 
+        paymentFrame.add(confirmButton); 
 
+   
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,15 +38,14 @@ public class PaymentForm {
             }
         });
 
-        paymentFrame.pack();
-        paymentFrame.setVisible(true);
+        paymentFrame.pack(); 
+        paymentFrame.setVisible(true); 
     }
 
     private void completeRental(String item, String paymentMethod) {
-        // TODO: Add logic to complete the rental process
-        JOptionPane.showMessageDialog(paymentFrame, 
-            "Payment confirmed for " + item + " with " + paymentMethod + ".");
-        paymentFrame.dispose();
      
+        JOptionPane.showMessageDialog(paymentFrame, "Payment confirmed for " + item + " with " + paymentMethod + ".");
+        rentalSystem.updateListsAfterRental(item); /
+        paymentFrame.dispose(); 
     }
 }

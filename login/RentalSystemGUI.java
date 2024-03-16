@@ -16,6 +16,13 @@ public class RentalSystemGUI {
     private JButton viewOverdueButton;
 
     public RentalSystemGUI() {
+        initializeComponents();
+        setupLayout();
+        addListeners();
+        displayGUI();
+    }
+
+    private void initializeComponents() {
         rentalFrame = new JFrame("Rental System");
         availableItemsModel = new DefaultListModel<>();
         rentedItemsModel = new DefaultListModel<>();
@@ -25,14 +32,7 @@ public class RentalSystemGUI {
         returnButton = new JButton("Return Selected Item");
         viewOverdueButton = new JButton("View Overdue Items");
 
-        addMockData(); // Add mock data for demonstration purposes
-
-        setupLayout();
-        addListeners();
-    }
-
-    private void addMockData() {
-        // Mock data for demonstration. Replace with dynamic data as needed.
+        // data source.
         availableItemsModel.addElement("Book 1");
         availableItemsModel.addElement("Magazine 1");
         availableItemsModel.addElement("CD 1");
@@ -43,54 +43,68 @@ public class RentalSystemGUI {
         rentalFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         rentalFrame.setSize(800, 600);
 
-        JPanel availablePanel = new JPanel();
+        JPanel availablePanel = new JPanel(new BorderLayout());
         availablePanel.setBorder(BorderFactory.createTitledBorder("Available Items"));
         availablePanel.add(new JScrollPane(availableItemsList));
 
-        JPanel rentedPanel = new JPanel();
+        JPanel rentedPanel = new JPanel(new BorderLayout());
         rentedPanel.setBorder(BorderFactory.createTitledBorder("Rented Items"));
         rentedPanel.add(new JScrollPane(rentedItemsList));
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+        JPanel buttonPanel = new JPanel();
         buttonPanel.add(rentButton);
         buttonPanel.add(returnButton);
         buttonPanel.add(viewOverdueButton);
 
         rentalFrame.add(availablePanel, BorderLayout.WEST);
-        rentalFrame.add(rentedPanel, BorderLayout.EAST);
+        rentalFrame.add(rentedPanel, BorderLayout.CENTER);
         rentalFrame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void addListeners() {
-        rentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selected = availableItemsList.getSelectedValue();
-                if (selected != null && !selected.isEmpty()) {
-                    openPaymentForm(selected);
-                } else {
-                    JOptionPane.showMessageDialog(rentalFrame, "Please select an item to rent.");
-                }
+        rentButton.addActionListener(e -> {
+            String selected = availableItemsList.getSelectedValue();
+            if (selected != null && !selected.isEmpty()) {
+                openPaymentForm(selected);
+            } else {
+                JOptionPane.showMessageDialog(rentalFrame, "Please select an item to rent.");
             }
         });
 
-       
+        returnButton.addActionListener(e -> {
+            String selected = rentedItemsList.getSelectedValue();
+            if (selected != null && !selected.isEmpty()) {
+                returnItem(selected);
+            } else {
+                JOptionPane.showMessageDialog(rentalFrame, "Please select an item to return.");
+            }
+        });
+
+    }
+
+    private void openPaymentForm(String item) {
+        new PaymentForm(this, item); // Pass 'this' to PaymentForm
+    }
+
+    private void returnItem(String item) {
+        SwingUtilities.invokeLater(() -> {
+            rentedItemsModel.removeElement(item);
+            availableItemsModel.addElement(item);
+        });
+    }
+
+    public void updateListsAfterRental(String item) {
+        SwingUtilities.invokeLater(() -> {
+            availableItemsModel.removeElement(item);
+            rentedItemsModel.addElement(item);
+        });
     }
 
     public void displayGUI() {
         rentalFrame.setVisible(true);
     }
 
-    private void openPaymentForm(String item) {
-        PaymentForm paymentForm = new PaymentForm(item);
-        paymentForm.display();
-    }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new RentalSystemGUI().displayGUI();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new RentalSystemGUI().displayGUI());
     }
 }

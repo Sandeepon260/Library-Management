@@ -43,7 +43,6 @@ public class PaymentForm {
         JOptionPane.showMessageDialog(paymentFrame, 
             "Payment confirmed for " + item + " with " + paymentMethod + ".");
         paymentFrame.dispose();
-        // Here you would also add the logic to update the rental system,
-        // such as removing the item from the available list and adding it to the rented list
+     
     }
 }

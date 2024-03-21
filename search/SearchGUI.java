@@ -114,7 +114,9 @@ public class SearchGUI implements ActionListener{
 		frame.setVisible(true);
 	}
 		
-	
+	public SearchGUI(){
+		createGUI();
+	}
 	public SearchGUI(String user) {
 		this.userEmail = user;
 		createGUI();

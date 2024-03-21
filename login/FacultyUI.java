@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
+import items.*;
 
 public class FacultyUI extends JFrame {
     private FacultyClient currentFaculty;

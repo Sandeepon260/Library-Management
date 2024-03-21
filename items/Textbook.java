@@ -8,21 +8,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class Textbook {
+import login.Course;
+import login.FacultyClient;
+
+public class Textbook {
     private String title;
     private int edition;
-    private Set<Faculty> observers = new HashSet<>();
+    private Set<FacultyClient> observers = new HashSet<>();
 
     public Textbook(String title, int edition) {
         this.title = title;
         this.edition = edition;
     }
 
-    public void addObserver(Faculty faculty) {
+    public void addObserver(FacultyClient faculty) {
         observers.add(faculty);
     }
 
-    public void removeObserver(Faculty faculty) {
+    public void removeObserver(FacultyClient faculty) {
         observers.remove(faculty);
     }
 
@@ -34,7 +37,7 @@ class Textbook {
     }
 
     private void notifyObservers() {
-        for (Faculty observer : observers) {
+        for (FacultyClient observer : observers) {
             observer.update(this);
         }
     }
@@ -45,48 +48,6 @@ class Textbook {
 
 }
 
-class Faculty {
-    private String name;
-    private Set<Course> courses = new HashSet<>();
-
-    public Faculty(String name) {
-        this.name = name;
-    }
-
-    public void assignCourse(Course course) {
-        courses.add(course);
-    }
-
-    public void update(Textbook textbook) {
-        System.out.println("Faculty " + name + " notified about new edition of textbook: " + textbook.getTitle() + ", Edition: " + textbook.getEdition());
-    }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public Set<Course> getCourses() { return courses; }
-}
-
-class Course {
-    private String courseId;
-    private List<Textbook> textbooks = new ArrayList<>();
-    private List<Faculty> faculties = new ArrayList<>();
-
-    public Course(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public void addTextbook(Textbook textbook) {
-        textbooks.add(textbook);
-    }
-    
-    public void addFaculty(Faculty faculty) {
-        faculties.add(faculty);
-    }
-
-    public String getCourseId() { return courseId; }
-    public List<Textbook> getTextbooks() { return textbooks; }
-    public List<Faculty> getFaculties() { return faculties; }
-}
 
 
 class CourseManagementSystem {

@@ -8,9 +8,9 @@ public class managementClient extends ClientDecorator {
       this.type = "management";
   }
 
-  @Override
+
   public void register(String email, String password) {
-      super.register(email, password);
+      super.register(email, password, "Management");
       System.out.println("Student registration needs further validation.");
   }
 }

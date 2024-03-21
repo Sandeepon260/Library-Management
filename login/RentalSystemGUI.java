@@ -83,7 +83,7 @@ public class RentalSystemGUI {
     }
 
     private void openPaymentForm(String item) {
-        new PaymentForm(this, item); // Pass 'this' to PaymentForm
+        new PaymentFormGUI(this, item); // Pass 'this' to PaymentForm
     }
 
     private void returnItem(String item) {

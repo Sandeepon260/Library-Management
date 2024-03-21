@@ -1,5 +1,9 @@
 package login;
 
+import java.util.Set;
+
+import items.Textbook;
+
 //@author: Mehregan Mesgari
 
 public class FacultyClient extends ClientDecorator {
@@ -14,4 +18,15 @@ public class FacultyClient extends ClientDecorator {
         super.register(email, password,"Faculty");
         System.out.println("Faculty registration needs further validation.");
     }
+    
+///?????
+	public void update(Textbook textbook) {
+		// TODO Auto-generated method stub
+		
+	}
+	///?????
+	public Set<Course> getCourses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

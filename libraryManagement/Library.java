@@ -16,7 +16,7 @@ public class Library {
     }
 
     public void addItem(String itemType, String title, String additionalInfo) {
-        items.add(LibraryItemFactory.createItem(itemType, title, false, title, additionalInfo));
+        items.add(LibraryItemFactory.createItem(itemType, title, additionalInfo, false, false, title, additionalInfo));
     
      
     }

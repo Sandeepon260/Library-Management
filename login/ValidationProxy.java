@@ -10,9 +10,9 @@ public class ValidationProxy implements Client {
     }
 
     @Override
-    public void register(String email, String password) {
+    public void register(String email, String password,String role) {
         if (validateEmail(email) && validatePassword(password)) {
-            realClient.register(email, password);
+            realClient.register(email, password,role);
         } else {
             System.out.println("Invalid email or password. Registration failed.");
         }
@@ -30,4 +30,6 @@ public class ValidationProxy implements Client {
     public String getPassword(String email) {
         return realClient.getPassword(email);
     }
+
+	
 }

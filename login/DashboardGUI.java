@@ -1,11 +1,12 @@
 package login;
 
+// import search.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class DashboardGUI {
     private JFrame frame;
-    private JButton borrowedBooksButton;
+    private JButton borrowedBooksButton; 
 
     public DashboardGUI() {
         initializeUI();
@@ -30,6 +31,8 @@ public class DashboardGUI {
         // Adding action listeners for borrowed books button
         borrowedBooksButton.addActionListener(e -> openRentalSystem());
 
+        // searchBookButton.addActionListener(e -> openSearch());
+
         panel.add(borrowedBooksButton);
         panel.add(searchBooksButton);
         panel.add(subscribeNewsletterButton);
@@ -43,6 +46,11 @@ public class DashboardGUI {
         RentalSystemGUI rentalSystem = new RentalSystemGUI();
         rentalSystem.displayGUI();
     }
+    // private void openSearch(){
+    //     // This will open the search GUI
+    //     new SearchGUI();
+        
+    // }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(DashboardGUI::new);

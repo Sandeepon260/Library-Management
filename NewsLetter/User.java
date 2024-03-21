@@ -3,6 +3,7 @@ package NewsLetter;
 import java.util.ArrayList;
 import java.util.List;
 
+import login.NewsletterContentObserver;
 import login.NewsletterContentPublisher;
 
 public class User implements NewsletterContentObserver {
@@ -14,7 +15,6 @@ public class User implements NewsletterContentObserver {
         this.subscriptions = new ArrayList<>();
     }
 
-    @Override
     public void update(String content) {
         System.out.println("New content available for " + email + ": " + content);
     }

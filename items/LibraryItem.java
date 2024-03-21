@@ -16,6 +16,9 @@ public abstract class LibraryItem {
     protected String location;
     protected boolean purchasable;
     protected String title;
+    protected String price;
+    protected boolean rented;
+    protected String author;
 
     private boolean isRented = false;
     private LocalDate rentalDate;
@@ -25,13 +28,16 @@ public abstract class LibraryItem {
     //req8 - fardad
     protected String borrowerEmail; // New field to store the email of the borrower
 
-   public LibraryItem(String itemType, String location, boolean purchasable, String title) {
+   public LibraryItem(String itemType, String location, boolean purchasable, String title, String price, boolean rented,String author) {
         this.itemId = nextId++;
         this.itemType = itemType;
         this.location = location;
         this.purchasable = purchasable;
         this.borrowerEmail = ""; // Initialize borrowerEmail to null
         this.title = title; // added 
+        this.price = price; 
+        this.rented = rented; 
+        this.author = author;
     }
 
 // Methods to rent and return items, including updating the database
@@ -130,7 +136,19 @@ public abstract class LibraryItem {
     public void setBorrowerEmail(String borrowerEmail) {
         this.borrowerEmail = borrowerEmail;
     }
-    
+
+	public String getPrice() {		return this.price;
+	}
+
+	public boolean isRented() {
+		return this.rented;
+	}
+
+	public String getAuthor() {
+		return this.author;
+	}
+
+
     
 
     

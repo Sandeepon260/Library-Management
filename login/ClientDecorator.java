@@ -11,8 +11,8 @@ public abstract class ClientDecorator implements Client {
     }
 
     @Override
-    public void register(String email, String password) {
-        decoratedClient.register(email, password);
+    public void register(String email, String password, String role) {
+        decoratedClient.register(email, password,role);
     }
 
     @Override

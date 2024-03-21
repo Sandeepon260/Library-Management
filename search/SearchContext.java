@@ -1,4 +1,5 @@
 package search;
+import items.*;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class SearchContext {
 	public SearchContext(SearchStrategy strategy) {
 		this.strategy = strategy;
 	}
-	public List<Book> search(List<Book> books, String search){
-		return strategy.search(books, search);
+	public List<LibraryItem> search(List<LibraryItem> LibraryItems, String search){
+		return strategy.search(LibraryItems, search);
 	}
 }

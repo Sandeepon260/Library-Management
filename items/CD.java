@@ -5,8 +5,8 @@ package items;
 class CD extends LibraryItem {
     private String artist;
 
-    public CD(String location, boolean purchasable, String title, String artist) {
-        super("CD",location, purchasable, title);
+    public CD(String location, String price, boolean purchasable, boolean purchasable2, String title, String artist) {
+        super("CD",location, purchasable, title, artist, purchasable, artist);
         this.artist = artist;
     }
 

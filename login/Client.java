@@ -5,6 +5,6 @@ package login;
 public interface Client {
 	
     String type = "";
-    void register(String email, String password);
+    void register(String email, String password, String role) ;
     String getPassword(String email);
 }

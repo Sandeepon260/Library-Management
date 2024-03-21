@@ -5,8 +5,8 @@ package items;
 class Magazine extends LibraryItem {
     private String publisher;
 
-    public Magazine(String location, boolean purchasable, String title,String publisher) {
-        super("Magazine",location, purchasable, title);
+    public Magazine(String location, String price, boolean purchasable, boolean purchasable2, String title,String publisher) {
+        super("Magazine",location, purchasable, title, publisher, purchasable, publisher);
         this.publisher = publisher; 
     }
 

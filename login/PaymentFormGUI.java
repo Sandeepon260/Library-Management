@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PaymentForm {
+public class PaymentFormGUI {
     private JFrame paymentFrame;
     private JLabel itemLabel;
     private JComboBox<String> paymentMethodComboBox;
@@ -13,7 +13,7 @@ public class PaymentForm {
     private String item;
     private RentalSystemGUI rentalSystem; 
 
-    public PaymentForm(RentalSystemGUI rentalSystem, String item) {
+    public PaymentFormGUI(RentalSystemGUI rentalSystem, String item) {
         this.rentalSystem = rentalSystem; 
         this.item = item; 
         paymentFrame = new JFrame("Payment Form");
@@ -45,7 +45,7 @@ public class PaymentForm {
     private void completeRental(String item, String paymentMethod) {
      
         JOptionPane.showMessageDialog(paymentFrame, "Payment confirmed for " + item + " with " + paymentMethod + ".");
-        rentalSystem.updateListsAfterRental(item); /
+        rentalSystem.updateListsAfterRental(item); 
         paymentFrame.dispose(); 
     }
 }

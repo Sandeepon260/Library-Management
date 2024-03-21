@@ -1,4 +1,5 @@
 package search;
+import items.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,11 +9,11 @@ import java.util.Map;
 public class searchByTitle implements SearchStrategy{
 
 	@Override
-	public List<Book> search(List<Book> books, String search) {
-		List<Book> result = new ArrayList<>();
-		for (Book book: books) {
-			if(search.equalsIgnoreCase(book.getTitle())) {
-				result.add(book);
+	public List<LibraryItem> search(List<LibraryItem> LibraryItems, String search) {
+		List<LibraryItem> result = new ArrayList<>();
+		for (LibraryItem LibraryItem: LibraryItems) {
+			if(search.equalsIgnoreCase(LibraryItem.getTitle())) {
+				result.add(LibraryItem);
 				return result;
 			}
 		}
@@ -20,66 +21,66 @@ public class searchByTitle implements SearchStrategy{
 	}
 
 	
-	public List<Book> recommendations(List<Book> books, String search) {
-		// TODO Auto-generated method stub
-		// Getting the words from the search in a list 
-		List<String> words = words(search);
-		List<Book> recommendations = new ArrayList<>();
-		Map<Book,Integer> booktoMatchCount = new HashMap<>();
-		int matchCount;
-		int highestMatch = 0; //Highest number of words matched to the titles
-		int secondMatch = 0; // Second highest
-		int thirdMatch = 0; // Third highest
-		
-		
-		for(Book book: books) {
-			matchCount = 0;
-			List<String> title = words(book.getTitle());
-			for(String word: words) {
-				if(title.contains(word)) {
-					matchCount++;
-				}
-			}
-			booktoMatchCount.put(book, matchCount); // Mapping the books with the number of words matched in the title as the search
-			// Updating the highest number of words matched to the titles and the search words
-			if(matchCount > highestMatch) {
-				thirdMatch = secondMatch;
-				secondMatch = highestMatch;
-				highestMatch = matchCount;
-			} else if (matchCount > secondMatch) {
-				thirdMatch = secondMatch;
-				secondMatch = matchCount;
-			} else if (matchCount > thirdMatch) {
-				thirdMatch = matchCount;
-			}
-		}
-		//Getting the books that have the top 3 highest number of words matched to the title to produce recommendations
-		if(highestMatch == 0) {
-			return null; // No matches 
-		} else {
-			for(Map.Entry<Book, Integer> entry: booktoMatchCount.entrySet()) {
-				Book book = entry.getKey();
-				Integer match = entry.getValue();
-				if(match == highestMatch) {
-					recommendations.add(book);
-				}
-				if(secondMatch != 0) {
-					if(match == secondMatch) {
-						recommendations.add(book);
-					}
-					if(thirdMatch != 0) {
-						if(match == thirdMatch) {
-							recommendations.add(book);
-						}
-					}
-				}
-			}
-		}
-		
-		
-		return recommendations;
-		
-	}
+//	public List<LibraryItem> recommendations(List<LibraryItem> LibraryItems, String search) {
+//		// TODO Auto-generated method stub
+//		// Getting the words from the search in a list 
+//		List<String> words = words(search);
+//		List<LibraryItem> recommendations = new ArrayList<>();
+//		Map<LibraryItem,Integer> LibraryItemtoMatchCount = new HashMap<>();
+//		int matchCount;
+//		int highestMatch = 0; //Highest number of words matched to the titles
+//		int secondMatch = 0; // Second highest
+//		int thirdMatch = 0; // Third highest
+//		
+//		
+//		for(LibraryItem LibraryItem: LibraryItems) {
+//			matchCount = 0;
+//			List<String> title = words(LibraryItem.getTitle());
+//			for(String word: words) {
+//				if(title.contains(word)) {
+//					matchCount++;
+//				}
+//			}
+//			LibraryItemtoMatchCount.put(LibraryItem, matchCount); // Mapping the LibraryItems with the number of words matched in the title as the search
+//			// Updating the highest number of words matched to the titles and the search words
+//			if(matchCount > highestMatch) {
+//				thirdMatch = secondMatch;
+//				secondMatch = highestMatch;
+//				highestMatch = matchCount;
+//			} else if (matchCount > secondMatch) {
+//				thirdMatch = secondMatch;
+//				secondMatch = matchCount;
+//			} else if (matchCount > thirdMatch) {
+//				thirdMatch = matchCount;
+//			}
+//		}
+//		//Getting the LibraryItems that have the top 3 highest number of words matched to the title to produce recommendations
+//		if(highestMatch == 0) {
+//			return null; // No matches 
+//		} else {
+//			for(Map.Entry<LibraryItem, Integer> entry: LibraryItemtoMatchCount.entrySet()) {
+//				LibraryItem LibraryItem = entry.getKey();
+//				Integer match = entry.getValue();
+//				if(match == highestMatch) {
+//					recommendations.add(LibraryItem);
+//				}
+//				if(secondMatch != 0) {
+//					if(match == secondMatch) {
+//						recommendations.add(LibraryItem);
+//					}
+//					if(thirdMatch != 0) {
+//						if(match == thirdMatch) {
+//							recommendations.add(LibraryItem);
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		
+//		return recommendations;
+//		
+//	}
 	
 	public List<String> words(String search){
 		List<String> words = new ArrayList<>();

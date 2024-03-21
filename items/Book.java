@@ -2,8 +2,8 @@ package items;
 public class Book extends LibraryItem {
     private String author;
 
-    public Book(String location, boolean purchasable, String title, String author) {
-        super("Book",location, purchasable, title);
+    public Book(String location, String price, boolean purchasable, boolean purchasable2, String title, String author) {
+        super("Book",location, purchasable, title, author, purchasable, author);
         this.author = author;
     }
 
@@ -14,6 +14,10 @@ public class Book extends LibraryItem {
    
     public String getAuthor() {
     	return this.author;
+    }
+    
+    public String getTitle() {
+    	return this.title;
     }
 
 

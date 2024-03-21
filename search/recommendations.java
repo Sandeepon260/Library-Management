@@ -1,5 +1,5 @@
 package search;
-
+import items.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,26 +8,26 @@ import java.util.Map;
 public class recommendations implements SearchStrategy {
 
 	@Override
-	public List<Book> search(List<Book> books, String search) {
+	public List<LibraryItem> search(List<LibraryItem> LibraryItems, String search) {
 		// TODO Auto-generated method stub
 		List<String> words = words(search);
-		List<Book> recommendations = new ArrayList<>();
-		Map<Book,Integer> booktoMatchCount = new HashMap<>();
+		List<LibraryItem> recommendations = new ArrayList<>();
+		Map<LibraryItem,Integer> LibraryItemtoMatchCount = new HashMap<>();
 		int matchCount;
 		int highestMatch = 0; //Highest number of words matched to the titles
 		int secondMatch = 0; // Second highest
 		int thirdMatch = 0; // Third highest
 		
 		
-		for(Book book: books) {
+		for(LibraryItem LibraryItem: LibraryItems) {
 			matchCount = 0;
-			List<String> title = words(book.getTitle());
+			List<String> title = words(LibraryItem.getTitle());
 			for(String word: words) {
 				if(title.contains(word)) {
 					matchCount++;
 				}
 			}
-			booktoMatchCount.put(book, matchCount); // Mapping the books with the number of words matched in the title as the search
+			LibraryItemtoMatchCount.put(LibraryItem, matchCount); // Mapping the LibraryItems with the number of words matched in the title as the search
 			// Updating the highest number of words matched to the titles and the search words
 			if(matchCount > highestMatch) {
 				thirdMatch = secondMatch;
@@ -41,27 +41,55 @@ public class recommendations implements SearchStrategy {
 			}
 		}
 		
-		//Getting the books that have the top 3 highest number of words matched to the title to produce recommendations
+		//Getting the LibraryItems that have the top 3 highest number of words matched to the title to produce recommendations
 		if(highestMatch == 0) {
 					return recommendations; // No matches 
 				} else {
-					for(Map.Entry<Book, Integer> entry: booktoMatchCount.entrySet()) {
-						Book book = entry.getKey();
+					for(Map.Entry<LibraryItem, Integer> entry: LibraryItemtoMatchCount.entrySet()) {
+						LibraryItem LibraryItem = entry.getKey();
 						Integer match = entry.getValue();
 						if(match == highestMatch) {
-							recommendations.add(book);
+							boolean check = true;
+							for(LibraryItem item:recommendations ) {
+								if(item.getTitle().equals(LibraryItem.getTitle())) {
+									check = false;
+									break;
+								}
+							}
+							if(check) {
+								recommendations.add(LibraryItem);
+							}
+							
+							//recommendations.add(LibraryItem);
 						}
 						if(secondMatch != 0) {
 							if(match == secondMatch) {
-								if(!recommendations.contains(book)) {
-									recommendations.add(book);
+								boolean check = true;
+								for(LibraryItem item:recommendations ) {
+									if(item.getTitle().equals(LibraryItem.getTitle())) {
+										check = false;
+										break;
+									}
 								}
+								if(check) {
+									recommendations.add(LibraryItem);
+								}
+//								if(!recommendations.contains(LibraryItem)) {
+//									recommendations.add(LibraryItem);
+//								}
 								
 							}
 							if(thirdMatch != 0) {
 								if(match == thirdMatch) {
-									if(!recommendations.contains(book)) {
-										recommendations.add(book);
+									boolean check = true;
+									for(LibraryItem item:recommendations ) {
+										if(item.getTitle().equals(LibraryItem.getTitle())) {
+											check = false;
+											break;
+										}
+									}
+									if(check) {
+										recommendations.add(LibraryItem);
 									}
 								}
 							}

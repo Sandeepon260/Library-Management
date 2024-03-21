@@ -1,5 +1,4 @@
 package login;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,8 +54,8 @@ public class RegistrationLoginGUI {
         String password = new String(passwordField.getPassword()).trim();
         String userType = (String) userTypeCombo.getSelectedItem();
 
-        // Email validation for "@" presence and ".com" ending
-        if (!email.contains("@") || !email.endsWith(".com")) {
+        // Email validation for "@" presence and ".com" or ".ca" ending
+        if (!email.contains("@") || (!email.endsWith(".com") && !email.endsWith(".ca"))) {
             JOptionPane.showMessageDialog(frame, "Invalid email format", "Registration Error", JOptionPane.ERROR_MESSAGE);
             return; // Exit the method without attempting to register
         }
@@ -71,7 +70,7 @@ public class RegistrationLoginGUI {
         try (FileWriter fw = new FileWriter(CSV_FILE, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(email + "," + password + "," + userType); // Include userType in the entry
+            out.println(email + "," + password + "," + userType + "," + "pending"); // Include userType in the entry
             JOptionPane.showMessageDialog(frame, "Registration successful.", "Registration", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(frame, "Failed to register user: " + ex.getMessage(), "Registration Error", JOptionPane.ERROR_MESSAGE);
@@ -82,18 +81,21 @@ public class RegistrationLoginGUI {
     private void login(ActionEvent e) {
         String email = emailField.getText();
         String password = new String(passwordField.getPassword());
-        
+
         // This method needs to be defined to check the password and get user type from CSV
         String userType = getUserTypeFromCSV(email, password);
-        
+
         if (userType == null) {
             JOptionPane.showMessageDialog(frame, "Login failed: Incorrect email or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
-        } else if (!userType.equals("Management")) {
+        } else if (userType.equals("Management")) {
+            JOptionPane.showMessageDialog(frame, "Login successful as Management.");
+            frame.dispose(); // Close the login window
+            new ManagementDashboardGUI(); // Open the ManagementDashboardGUI for Management users
+        } else {
             JOptionPane.showMessageDialog(frame, "Login successful.");
             frame.dispose(); // Close the login window
             new DashboardGUI(); // Open the DashboardGUI for non-Management users
         }
-        // If the user is of type Management, nothing is shown as per the requirement
     }
 
     private String getUserTypeFromCSV(String email, String password) {
@@ -110,25 +112,6 @@ public class RegistrationLoginGUI {
             ex.printStackTrace();
         }
         return null; // Return null if user not found, password is incorrect, or entry is malformed
-    }
-
-
-
-    private Client getClient(String userType) {
-        switch (userType) {
-            case "Student":
-                return new StudentClient(new BasicClient());
-            case "Faculty":
-                return new FacultyClient(new BasicClient());
-            case "Non-Faculty":
-                return new nonFacultyClient(new BasicClient());
-            case "Visitor":
-                return new Visitor(new BasicClient());
-            case "Management":
-                return new managementClient(new BasicClient()); // Creating a new ManagementClient
-            default:
-                return new BasicClient();
-        }
     }
 
     private boolean userExists(String email) {

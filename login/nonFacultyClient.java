@@ -8,8 +8,8 @@ public class nonFacultyClient extends ClientDecorator {
 	    }
 
 	    @Override
-	    public void register(String email, String password) {
-	        super.register(email, password);
+	    public void register(String email, String password, String role) {
+	        super.register(email, password,"nonFaculty");
 	        System.out.println("Faculty registration needs further validation.");
 	    }
 	}

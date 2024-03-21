@@ -1,7 +1,8 @@
 package search;
+import items.*;
 
 import java.util.List;
 
 public interface SearchStrategy {
-	public List<Book> search(List<Book> books, String search);
+	public List<LibraryItem> search(List<LibraryItem> LibraryItems, String search);
 }

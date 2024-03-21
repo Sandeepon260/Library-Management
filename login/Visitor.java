@@ -9,8 +9,8 @@ public class Visitor extends ClientDecorator {
     }
 
     @Override
-    public void register(String email, String password) {
-        super.register(email, password);
+    public void register(String email, String password, String role) {
+        super.register(email, password,"visitor");
         System.out.println("Faculty registration needs further validation.");
     }
 }

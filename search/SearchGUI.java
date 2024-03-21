@@ -1,5 +1,5 @@
 package search;
-
+import items.*;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,8 +8,10 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 import javax.swing.*;
 
 public class SearchGUI implements ActionListener{
-	
+	String userEmail;
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	
@@ -26,11 +28,11 @@ public class SearchGUI implements ActionListener{
 	JButton SearchButton = new JButton("Search");
 	
 	JButton rentButton = new JButton("Rent");
-
+	JButton purchase = new JButton("Purchase");
 	int actionCounter = 0;
-	List<Book> ExactMatchResult = new ArrayList<>();
-	List<Book> RecommendationResult = new ArrayList<>();
-	
+	List<LibraryItem> ExactMatchResult = new ArrayList<>();
+	List<LibraryItem> RecommendationResult = new ArrayList<>();
+	String path = "library.csv";
 	private void createGUI() {
 		
 		frame.getContentPane().removeAll();
@@ -65,10 +67,16 @@ public class SearchGUI implements ActionListener{
             panel.add(new JLabel("Exact Match: "), constraints);
             constraints.gridy += 1;
             panel.add(new JLabel(title), constraints);
-            constraints.gridx = 1;
-            
+            constraints.gridx = 2;
             rentButton.addActionListener((ActionListener) this);
             panel.add(rentButton, constraints);
+            
+            
+            constraints.gridx = 3;
+            purchase.addActionListener((ActionListener) this);
+            panel.add(purchase, constraints);
+
+            
             constraints.gridx = 0;
         } else {
             constraints.gridy += 1;
@@ -82,10 +90,10 @@ public class SearchGUI implements ActionListener{
             constraints.gridy += 1;
             panel.add(new JLabel("Recomendations: "), constraints);
 			for (int i = 0; i < RecommendationResult.size(); i++) {
-				Book book = RecommendationResult.get(i);
-				System.out.println(book.getDetails());
+				LibraryItem LibraryItem = RecommendationResult.get(i);
+				System.out.println(LibraryItem.getDetails());
             	JLabel resultLabel = new JLabel();
-            	resultLabel.setText(book.getDetails());
+            	resultLabel.setText(LibraryItem.getDetails());
                 constraints.gridy += 1;
                 panel.add(resultLabel, constraints);
 			}
@@ -107,12 +115,13 @@ public class SearchGUI implements ActionListener{
 	}
 		
 	
-	public SearchGUI() {
+	public SearchGUI(String user) {
+		this.userEmail = user;
 		createGUI();
 	}
 	
 	public static void main(String[] args) {
-		new SearchGUI();
+		new SearchGUI("hello");
 	}
 
 	@Override
@@ -130,16 +139,16 @@ public class SearchGUI implements ActionListener{
 	        
 	        SearchStrategy recommendationsStrategy = new recommendations();
 
-	        // Create the BookSearchContext with the searchByTitleStrategy
+	        // Create the LibraryItemSearchContext with the searchByTitleStrategy
 	        SearchContext searchContext = new SearchContext(searchByTitleStrategy);
 	        
 	        //
 	        
 	        
 	        
-	        List<Book> books = new ArrayList<>();
+	        List<LibraryItem> LibraryItems = new ArrayList<>();
 //	        
-	        String path = "resources/library.csv";
+	        
 //	        String line = "";
 	        try {
 				BufferedReader br = new BufferedReader(new FileReader(path));
@@ -148,15 +157,29 @@ public class SearchGUI implements ActionListener{
 					String[] values = line.split(",");
 					String ID = values[0];
 					String type = values[1];
-					String title = values[2];
-					String author = values[3];
-					boolean purchasable = values[4].equals("true") ?  true : false;
-					String location= values[5];
-		
-					if(type.equals("Book")) {
-						Book newBook = new Book(location, purchasable, title, author);
-						books.add(newBook);
-					}
+					String location= values[2];
+					String title = values[3];
+					String author = values[4];
+					boolean purchasable = values[5].equals("true") ?  true : false;
+					boolean available = values[6].equals("true") ?  true : false;
+					if(available) {
+						items.LibraryItem newLibraryItem = LibraryItemFactory.createItem(type, location, author, purchasable, available, title, author);
+//						switch (type) {
+//							case "Book":
+//								newLibraryItem = new Book(location, purchasable, title, author);
+//								break;
+//							case "CD":
+//								newLibraryItem = new CD(location, purchasable, title, author);
+//								break;
+//							case "Magazine":
+//								newLibraryItem = new Magazine(location, purchasable, title, author);
+//								break;
+//							default:
+//								throw new NullPointerException();
+//						}
+						LibraryItems.add(newLibraryItem);
+					}		
+					
 					
 				}
 			} catch (FileNotFoundException e1) {
@@ -165,16 +188,16 @@ public class SearchGUI implements ActionListener{
 				e1.printStackTrace();
 			}
 	        
-//	        System.out.println(books.get(0).getDetails());
-//	        System.out.println(books.size());
+//	        System.out.println(LibraryItems.get(0).getDetails());
+//	        System.out.println(LibraryItems.size());
 	        
 	        
-//	          books.add(new Book("0", true, "The great Gatsby","0"));
-//	        books.add(new Book("1", true,"To Kill a Mockingbird novel help", "0"));
-//	        books.add(new Book("2", true,"1984", "0"));
-//	        books.add(new Book("3", true,"Pride and Prejudice", "0"));
-//	        books.add(new Book("4", true,"The Catcher in the Rye", "0"));
-//	        books.add(new Book("5", true,"The Catcher in the Rye novel help", "0"));
+//	          LibraryItems.add(new LibraryItem("0", true, "The great Gatsby","0"));
+//	        LibraryItems.add(new LibraryItem("1", true,"To Kill a Mockingbird novel help", "0"));
+//	        LibraryItems.add(new LibraryItem("2", true,"1984", "0"));
+//	        LibraryItems.add(new LibraryItem("3", true,"Pride and Prejudice", "0"));
+//	        LibraryItems.add(new LibraryItem("4", true,"The Catcher in the Rye", "0"));
+//	        LibraryItems.add(new LibraryItem("5", true,"The Catcher in the Rye novel help", "0"));
 	        //create csv later
 	        
 	        
@@ -186,9 +209,9 @@ public class SearchGUI implements ActionListener{
 			else {
 			    // Use searchByTitleStrategy and get recommendations
 			    searchContext = new SearchContext(searchByTitleStrategy);
-			    ExactMatchResult = searchContext.search(books, searchTerm);
+			    ExactMatchResult = searchContext.search(LibraryItems, searchTerm);
 			    searchContext = new SearchContext(recommendationsStrategy);
-			    RecommendationResult = searchContext.search(books, searchTerm);
+			    RecommendationResult = searchContext.search(LibraryItems, searchTerm);
 			}
 //			
 //	        panel.revalidate();
@@ -197,10 +220,44 @@ public class SearchGUI implements ActionListener{
 		}
 		
 		if (e.getSource() == rentButton) {
-			new SearchGUI();
-			System.out.println("renting " + ExactMatchResult.get(0).getTitle());
-		}
-		
-        
+//			try {
+//				BufferedReader br = new BufferedReader(new FileReader(path));
+//				String line;
+//				line = br.readLine();
+//				
+//				String updatedCSV = "";
+//				Boolean flag = false;
+//				while((line = br.readLine()) != null) {
+//					String[] values = line.split(",");
+//					String ID = values[0];
+//					String type = values[1];
+//					String title = values[2];
+//					String author = values[3];
+//					boolean purchasable = values[4].equals("true") ?  true : false;
+//					String location= values[5];
+//					boolean available = values[6].equals("true") ?  true : false;
+//					if(title.equals(ExactMatchResult.get(0).getTitle()) & available == true & flag == false) {
+//						values[6] = "false";
+//						String updatedLine = "";
+//						for (String val: values) {
+//							updatedLine += val + ",";
+//							flag = true;
+//						}
+//						updatedCSV += updatedLine + "\n";
+//						
+//					}else {
+//						updatedCSV += line + "\n";
+//					}
+//				}
+//				BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+//	            writer.write(updatedCSV);
+//
+//			}
+//			 catch (IOException e2) {
+//	            e2.printStackTrace();
+//	        }
+	    }
 	}
+			
+			
 }

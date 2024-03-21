@@ -11,17 +11,17 @@ public class LibraryItemFactory {
     private static final String DATABASE_FILE = "library.csv";
 
 
-    public static LibraryItem createItem(String itemType, String location, boolean purchasable, String arg0, String arg1) {
+    public static LibraryItem createItem(String itemType, String location, boolean purchasable, String title, String author) {
         LibraryItem item;
         switch (itemType.toLowerCase()) {
             case "book":
-                item = new Book(location, purchasable, arg0, arg1);
+                item = new Book(location, purchasable, title, author);
                 break;
             case "magazine":
-                item = new Magazine(location, purchasable, arg0, arg1);
+                item = new Magazine(location, purchasable, title, author);
                 break;
             case "cd":
-                item = new CD(location, purchasable, arg0, arg1);
+                item = new CD(location, purchasable, title, author);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid item type");

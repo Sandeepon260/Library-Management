@@ -79,9 +79,17 @@ public class RentalSystemGUI {
                 JOptionPane.showMessageDialog(rentalFrame, "Please select an item to return.");
             }
         });
-
+        viewOverdueButton.addActionListener(e -> showOverdueItems());
     }
 
+    private void showOverdueItems() {
+    
+        String overdueItems = "Overdue Items:\n" +
+                              "- Book 1 (Due: 2023-03-10)\n" +
+                              "- Magazine 2 (Due: 2023-03-05)\n";
+
+        JOptionPane.showMessageDialog(rentalFrame, overdueItems);
+    }
     private void openPaymentForm(String item) {
         new PaymentFormGUI(this, item); // Pass 'this' to PaymentForm
     }

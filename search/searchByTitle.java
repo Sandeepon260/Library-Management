@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+// Sandeepon Saha: Concrete strategy class for finding the book that the user has searched for. 
 public class searchByTitle implements SearchStrategy{
 
 	@Override
 	public List<String> search(List<String> titles, String search) {
 		List<String> result = new ArrayList<>();
 		for (String title: titles) {
-			System.out.println("title: "+ title.toLowerCase() + " search: " + search.toLowerCase() + search.toLowerCase().equals(title.toLowerCase()));
+			
 			if(search.trim().toLowerCase().equals(title.trim().toLowerCase())) {
 				result.add(title);
 				return result;

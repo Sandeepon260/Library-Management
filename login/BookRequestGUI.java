@@ -10,6 +10,10 @@ import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
+ * BookRequestGUI is a GUI for one of the Client functionalities that allows the client to request for a book that is not in the library
+ * It writed to the requestedBooks.csv file and based on the book, it gives a priority to the user
+ */
 public class BookRequestGUI extends JFrame {
 
     private JTextField bookNameField;
@@ -21,9 +25,9 @@ public class BookRequestGUI extends JFrame {
 
     public BookRequestGUI() {
         setTitle("Book Request Form");
-        setSize(300, 250); // Adjusted size to accommodate the new layout
+        setSize(300, 250); 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridLayout(6, 2)); // Adjusted grid layout for the new row
+        setLayout(new GridLayout(6, 2)); 
 
         bookNameField = new JTextField();
         courseField = new JTextField();
@@ -42,7 +46,7 @@ public class BookRequestGUI extends JFrame {
         add(textbookRadioButton);
         add(personalReadingRadioButton);
         add(new JLabel(""));
-        add(new JLabel("")); // Placeholder for alignment
+        add(new JLabel(""));
         add(requestButton);
 
         textbookRadioButton.addActionListener(new ActionListener() {
@@ -56,7 +60,7 @@ public class BookRequestGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 courseField.setEnabled(false);
-                courseField.setText(""); // Clear course field when personal reading is selected
+                courseField.setText(""); 
             }
         });
 
@@ -70,7 +74,7 @@ public class BookRequestGUI extends JFrame {
                     String bookName = bookNameField.getText();
                     String course = textbookRadioButton.isSelected() ? courseField.getText() : "0";
                     int priority = getPriority();
-                    String approval = "Pending"; // Initial approval status
+                    String approval = "Pending"; 
 
                     printWriter.println(bookType + "," + bookName + "," + course + "," + priority + "," + approval);
                     printWriter.close();
@@ -100,7 +104,7 @@ public class BookRequestGUI extends JFrame {
                 return 5;
             }
         }
-        return 1; // Default priority
+        return 1;
     }
 
     private String extractCourseNumber(String course) {
@@ -109,7 +113,7 @@ public class BookRequestGUI extends JFrame {
         if (matcher.find()) {
             return matcher.group();
         }
-        return ""; // Default, in case no number is found
+        return "";
     }
 
     public static void main(String[] args) {

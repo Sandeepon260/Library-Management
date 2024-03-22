@@ -1,6 +1,9 @@
 package login;
 
-//@author: Mehregan Mesgari
+/*
+ * ClientDecorator is another abstract class that implements the client class and decorates some functionalities to the client class
+ * it allows the client to register, and getter for their password and their role type
+ */
 
 public abstract class ClientDecorator implements Client {
     protected Client decoratedClient;

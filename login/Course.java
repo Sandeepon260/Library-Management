@@ -5,7 +5,10 @@ import java.util.List;
 
 import items.Textbook;
 
-
+/*
+ * course is a class that has the basic information of a class and the management can add textbooks and faculties to it so it can be retrived 
+ * by the faculty and students
+ */
 public class Course {
     private String courseId;
     private List<Textbook> textbooks = new ArrayList<>();

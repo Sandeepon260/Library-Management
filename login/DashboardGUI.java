@@ -9,11 +9,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/*
+ * the DashboardGUI is the main GUI for the students, visitors and non faculty staff. they have four main functionalities that they can use to rent a book, open virtual copies, 
+ * request books and search for items in the library
+ */
+
 public class DashboardGUI {
     private JFrame frame;
     private JButton borrowedBooksButton;
     private JButton requestBookButton;
-    User user = new User("user@example.com"); // Replace with actual user retrieval logic
+    User user = new User("user@example.com"); 
   
 
     public DashboardGUI() {
@@ -74,11 +79,11 @@ public class DashboardGUI {
         }
     }
     private void openSearchGUI() {
-        search.SearchGUI searchGUI = new search.SearchGUI(); // Adjust this line if necessary for correct package structure
+        search.SearchGUI searchGUI = new search.SearchGUI(); 
        
     }
     private void openBookRequestGUI() {
-        new login.BookRequestGUI(); // Open the BookRequestGUI
+        new login.BookRequestGUI(); 
     }
 
     private void showRentedItemsPopup() {
@@ -93,9 +98,9 @@ public class DashboardGUI {
     }
 
     public static void main(String[] args) {
-    	  User user = new User("user@example.com"); // Replace with actual user retrieval logic
-          NewsletterService.registerNewsletter("NY Times", new NewsletterContentPublisher()); // Dummy implementation
-          NewsletterService.registerNewsletter("Tech News", new NewsletterContentPublisher()); // Dummy implementation
+    	  User user = new User("user@example.com"); 
+          NewsletterService.registerNewsletter("NY Times", new NewsletterContentPublisher()); 
+          NewsletterService.registerNewsletter("Tech News", new NewsletterContentPublisher()); 
           
         SwingUtilities.invokeLater(DashboardGUI::new);
     }

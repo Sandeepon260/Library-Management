@@ -5,7 +5,10 @@ import java.util.Set;
 
 import items.Textbook;
 
-//@author: Mehregan Mesgari
+/*
+ * FacultyClient extends the clientDecorator class and has functionalites specific to the faculty client within itself. when the decorator recieves this faculty client, 
+ * the type of the user is set to faculty
+ */
 
 public class FacultyClient extends ClientDecorator {
 	protected String type; 
@@ -30,9 +33,5 @@ public class FacultyClient extends ClientDecorator {
         return courses;
     }
     
-	public void update(Textbook textbook) {
-		// TODO Auto-generated method stub
-		
-		
-	}
+
 }

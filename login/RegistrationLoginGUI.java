@@ -25,7 +25,7 @@ public class RegistrationLoginGUI {
         frame.setLayout(new GridLayout(5, 2));
 
         frame.add(new JLabel("User Type:"));
-        String[] userTypes = {"Student", "Faculty", "Non-Faculty", "Visitor", "Management"}; // Added Management
+        String[] userTypes = {"Student", "Faculty", "Non-Faculty", "Visitor", "Management"}; 
         userTypeCombo = new JComboBox<>(userTypes);
         frame.add(userTypeCombo);
 

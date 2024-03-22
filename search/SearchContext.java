@@ -9,7 +9,7 @@ public class SearchContext {
 	public SearchContext(SearchStrategy strategy) {
 		this.strategy = strategy;
 	}
-	public List<LibraryItem> search(List<LibraryItem> LibraryItems, String search){
+	public List<String> search(List<String> LibraryItems, String search){
 		return strategy.search(LibraryItems, search);
 	}
 }

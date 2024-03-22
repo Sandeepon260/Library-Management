@@ -1,7 +1,7 @@
 package search;
 import items.*;
-import libraryManagement.*;
 import login.*;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,8 +32,8 @@ public class SearchGUI implements ActionListener{
 	JButton rentButton = new JButton("Rent");
 	JButton purchase = new JButton("Purchase");
 	int actionCounter = 0;
-	List<LibraryItem> ExactMatchResult = new ArrayList<>();
-	List<LibraryItem> RecommendationResult = new ArrayList<>();
+	List<String> ExactMatchResult = new ArrayList<>();
+	List<String> RecommendationResult = new ArrayList<>();
 	String path = "library.csv";
 	private void createGUI() {
 		
@@ -62,9 +62,10 @@ public class SearchGUI implements ActionListener{
 		
 		constraints.gridx = 0;
 
+
 		if(!ExactMatchResult.isEmpty()) {
             constraints.gridy += 1;
-            String title = ExactMatchResult.get(0).getDetails();
+            String title = "Book: " + ExactMatchResult.get(0);
             panel.add(new JLabel("Exact Match: "), constraints);
             constraints.gridy += 1;
             panel.add(new JLabel(title), constraints);
@@ -91,10 +92,9 @@ public class SearchGUI implements ActionListener{
             constraints.gridy += 1;
             panel.add(new JLabel("Recomendations: "), constraints);
 			for (int i = 0; i < RecommendationResult.size(); i++) {
-				LibraryItem LibraryItem = RecommendationResult.get(i);
-				System.out.println(LibraryItem.getDetails());
+				String name = RecommendationResult.get(i);
             	JLabel resultLabel = new JLabel();
-            	resultLabel.setText(LibraryItem.getDetails());
+            	resultLabel.setText("Book: " + name);
                 constraints.gridy += 1;
                 panel.add(resultLabel, constraints);
 			}
@@ -103,9 +103,6 @@ public class SearchGUI implements ActionListener{
 
 		
 		frame.setSize(1000, 600);
-//		frame.pack();
-//		panel.revalidate();
-//		panel.repaint();
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Search Screen");
@@ -115,7 +112,7 @@ public class SearchGUI implements ActionListener{
 		frame.setVisible(true);
 	}
 		
-	public SearchGUI(){
+	public SearchGUI() {
 		createGUI();
 	}
 	public SearchGUI(String user) {
@@ -124,13 +121,12 @@ public class SearchGUI implements ActionListener{
 	}
 	
 	public static void main(String[] args) {
-		new SearchGUI("hello");
+		new SearchGUI();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-
 		
 		if (e.getSource() == SearchButton) {
 			String searchTerm = SearchField.getText().trim();
@@ -147,7 +143,7 @@ public class SearchGUI implements ActionListener{
 	        
 	        
 	        
-	        List<LibraryItem> LibraryItems = new ArrayList<>();
+	        List<String> LibraryItems = new ArrayList<>();
 //	        
 	        
 //	        String line = "";
@@ -164,21 +160,11 @@ public class SearchGUI implements ActionListener{
 					String price = values[5];
 					boolean rented = values[6].equals("true") ?  true : false;
 					if(!rented) {
-						items.LibraryItem newLibraryItem = LibraryItemFactory.createItem(type, "", price, rented, purchasable, title, author);
-//						switch (type) {
-//							case "Book":
-//								newLibraryItem = new Book(location, purchasable, title, author);
-//								break;
-//							case "CD":
-//								newLibraryItem = new CD(location, purchasable, title, author);
-//								break;
-//							case "Magazine":
-//								newLibraryItem = new Magazine(location, purchasable, title, author);
-//								break;
-//							default:
-//								throw new NullPointerException();
-//						}
-						LibraryItems.add(newLibraryItem);
+						if(type.equals("Book")) {
+							System.out.println("Title to add: "+ title);
+							LibraryItems.add(title);
+						}
+						
 					}		
 					
 					
@@ -189,8 +175,6 @@ public class SearchGUI implements ActionListener{
 				e1.printStackTrace();
 			}
 	        
-
-	        
 	        
 			// Determine the appropriate strategy based on the input
 	        if(searchTerm.equals("")) {
@@ -200,7 +184,7 @@ public class SearchGUI implements ActionListener{
 			else {
 			    // Use searchByTitleStrategy and get recommendations
 			    searchContext = new SearchContext(searchByTitleStrategy);
-			    ExactMatchResult = searchContext.search(LibraryItems, searchTerm);
+			    ExactMatchResult = searchContext.search(LibraryItems,searchTerm);
 			    searchContext = new SearchContext(recommendationsStrategy);
 			    RecommendationResult = searchContext.search(LibraryItems, searchTerm);
 			}
@@ -211,10 +195,10 @@ public class SearchGUI implements ActionListener{
 		}
 		
 		if (e.getSource() == rentButton) {
-			new RentalSystemGUI();
+			JOptionPane.showMessageDialog(null, "Book is rented!");
 	    }
-		if (e.getSource() == purchase){
-			new PaymentFormGUI(new RentalSystemGUI(), ExactMatchResult.get(0).getDetails());
+		if(e.getSource() == purchase) {
+			new PaymentFormGUI(new RentalSystemGUI(), ExactMatchResult.get(0));
 		}
 	}
 			

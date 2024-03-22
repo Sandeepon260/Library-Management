@@ -22,12 +22,10 @@ public class ManagementDashboardGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 1));
 
-        // Initialization
         addNewItemsButton = new JButton("Add New Items");
         approveRequestsButton = new JButton("Approve Requests");
         approveUsersButton = new JButton("Approve Users");
 
-        // Component setup
         setupComponents();
 
         setVisible(true);

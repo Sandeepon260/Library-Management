@@ -1,5 +1,6 @@
 package login;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import items.Textbook;
@@ -8,6 +9,8 @@ import items.Textbook;
 
 public class FacultyClient extends ClientDecorator {
 	protected String type; 
+	private Set<Course> courses = new HashSet<>();
+	
     public FacultyClient(Client decoratedClient) {
         super(decoratedClient);
         
@@ -19,14 +22,17 @@ public class FacultyClient extends ClientDecorator {
         System.out.println("Faculty registration needs further validation.");
     }
     
-///?????
+    public void assignCourse(Course course) {
+        courses.add(course);
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+    
 	public void update(Textbook textbook) {
 		// TODO Auto-generated method stub
 		
-	}
-	///?????
-	public Set<Course> getCourses() {
-		// TODO Auto-generated method stub
-		return null;
+		
 	}
 }

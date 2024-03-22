@@ -2,8 +2,11 @@ package login;import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import items.LibraryItem;
+
 class BasicClient implements Client {
     private static final String CSV_FILE = "users.csv";
+    public ArrayList<LibraryItem> borrowed = new ArrayList<>();
 
 
 

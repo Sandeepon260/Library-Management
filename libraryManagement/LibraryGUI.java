@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 
@@ -122,11 +125,11 @@ public class LibraryGUI {
 
         panel.add(btnBorrowBook);
 
-        
+       
 
         JButton btnReturnBook = new JButton("Return Book");
 
-        btnReturnBook.setBounds(470, 180, 120, 30); 
+        btnReturnBook.setBounds(470, 180, 120, 30);
 
         btnReturnBook.addActionListener(new ActionListener() {
 
@@ -225,7 +228,7 @@ public class LibraryGUI {
 
         studentLibrary.addItem(itemType, title, additionalInfo);
 
-        
+       
 
         JOptionPane.showMessageDialog(frame, "Book '" + title + "' added successfully for " +
 
@@ -238,7 +241,7 @@ public class LibraryGUI {
 
     }
 
-
+    //
 
     private void displayVirtualCopiesButtonClicked() {
 
@@ -253,6 +256,14 @@ public class LibraryGUI {
         // Clear the email field after displaying virtual copies
 
         clearTextFields();
+        // update on available books
+       
+        try {
+            URI uri = new URI("https://ocul-yor.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma991538392705151&context=L&vid=01OCUL_YOR:YOR_DEFAULT&lang=en&search_scope=OCULDiscoveryNetwork&adaptor=Local%20Search%20Engine&tab=OCULDiscoveryNetwork&query=any,contains,Introduction%20to%20programming&mode=basic");
+            Desktop.getDesktop().browse(uri);
+        } catch (URISyntaxException | IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 

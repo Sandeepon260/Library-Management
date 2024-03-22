@@ -1,14 +1,21 @@
+
 package items;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 //@author: Mehregan Mesgari
 
 public abstract class LibraryItem {
+private static final int MAX_BORROWED_ITEMS = 10;
+   private static final int MAX_DAYS_TO_KEEP_ITEM = 30;
+   private static final int MAX_OVERDUE_ITEMS = 3;
+   private static final int OVERDUE_DAYS_FOR_LOST = 15;
+   private static final double OVERDUE_PENALTY_PER_DAY = 0.5;
     private static int nextId = 1;
     protected int itemId; // Instance variable
 
@@ -34,9 +41,9 @@ public abstract class LibraryItem {
         this.location = location;
         this.purchasable = purchasable;
         this.borrowerEmail = ""; // Initialize borrowerEmail to null
-        this.title = title; // added 
-        this.price = price; 
-        this.rented = rented; 
+        this.title = title; // added
+        this.price = price;
+        this.rented = rented;
         this.author = author;
     }
 
@@ -58,9 +65,9 @@ public abstract class LibraryItem {
     }
  
     public String getTitle() {
-    	return this.title;
+    return this.title;
     }
-    
+   
  // Update the database with the item's rental status
     private void updateDatabase() {
         // Path to your CSV database
@@ -83,6 +90,44 @@ public abstract class LibraryItem {
             e.printStackTrace();
         }
     }
+   
+   
+    ///////
+   
+    public double calculateOverduePenalty() {
+        if (isOverdue()) {
+            long overdueDays = ChronoUnit.DAYS.between(dueDate, LocalDate.now());
+            return overdueDays * OVERDUE_PENALTY_PER_DAY;
+        }
+        return 0;
+    }
+
+    // Check if the item is overdue
+    public boolean isOverdue() {
+        return isRented && dueDate.isBefore(LocalDate.now());
+    }
+   
+   
+    public boolean hasBorrowingPrivileges(List<LibraryItem> borrowedItems) {
+        int overdueCount = 0;
+        for (LibraryItem item : borrowedItems) {
+            if (item.isOverdue()) {
+                overdueCount++;
+                if (overdueCount > MAX_OVERDUE_ITEMS) {
+                    return false; // More than 3 items overdue
+                }
+                if (ChronoUnit.DAYS.between(item.dueDate, LocalDate.now()) >= OVERDUE_DAYS_FOR_LOST) {
+                    return false; // Book is 15 days overdue, considered lost
+                }
+            }
+        }
+        return true; // User has borrowing privileges
+    }
+   
+    public boolean hasExceededBorrowingLimit(List<LibraryItem> borrowedItems) {
+        return borrowedItems.size() >= MAX_BORROWED_ITEMS;
+    }
+   
 
     // Existing methods...
     @Override
@@ -95,10 +140,10 @@ public abstract class LibraryItem {
 
  //    // req 8 - fardad
  //     @Override
-	// public String toString() {
-	// 	return "LibraryItem [itemId=" + itemId + ", itemType=" + itemType + ", location=" + location + ", purchasable="
-	// 			+ purchasable + ", borrowerEmail=" + borrowerEmail + ", title=" + title + "]";
-	// }
+// public String toString() {
+// return "LibraryItem [itemId=" + itemId + ", itemType=" + itemType + ", location=" + location + ", purchasable="
+// + purchasable + ", borrowerEmail=" + borrowerEmail + ", title=" + title + "]";
+// }
 
 
     public abstract String getDetails();
@@ -124,11 +169,11 @@ public abstract class LibraryItem {
     }
 
     public void setIsPurchasable(boolean val) {
-    	this.purchasable = val;
+    this.purchasable = val;
     }
 
     // new methods that fardad added
-    
+   
     public String getBorrowerEmail() {
         return borrowerEmail;
     }
@@ -137,19 +182,19 @@ public abstract class LibraryItem {
         this.borrowerEmail = borrowerEmail;
     }
 
-	public String getPrice() {		return this.price;
-	}
+public String getPrice() { return this.price;
+}
 
-	public boolean isRented() {
-		return this.rented;
-	}
+public boolean isRented() {
+return this.rented;
+}
 
-	public String getAuthor() {
-		return this.author;
-	}
+public String getAuthor() {
+return this.author;
+}
 
 
-    
+   
 
-    
+   
 }

@@ -76,10 +76,11 @@ public class FacultyUI extends JFrame {
             }
         }
     }
+    
 
     public static void main(String[] args) {
         // This main method is for demonstration. Initialize your faculty and courses here.
-    	FacultyClient faculty = new FacultyClient("Dr. Smith");
+    	FacultyClient faculty = new FacultyClient(new BasicClient());
         // Example course and textbook setup
         Course course = new Course("Software Engineering");
         Textbook textbook = new Textbook("Design Patterns", 1);

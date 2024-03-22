@@ -1,5 +1,8 @@
 package notif;
 
+/*
+ * interface notification allows the management to send notifications to the usersthat have subscriptions and prefer to recieve a notificatin for their subs
+ */
 public interface Notification {
     void send(String message);
 }

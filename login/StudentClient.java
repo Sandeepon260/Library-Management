@@ -1,6 +1,8 @@
 package login;
 
-//@author: Mehregan Mesgari
+/*
+ * StudentClient extends ClientDecorator and allows the students to register for an acount and log in as their role
+ */
 
 public class StudentClient extends ClientDecorator {
     public StudentClient(Client decoratedClient) {

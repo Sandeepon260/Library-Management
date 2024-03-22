@@ -32,6 +32,10 @@ public class FacultyClient extends ClientDecorator {
     public Set<Course> getCourses() {
         return courses;
     }
+
+	public void update(Textbook textbook) {
+		
+	}
     
 
 }

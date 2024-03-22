@@ -6,6 +6,9 @@ import java.util.Map;
 
 import login.NewsletterContentPublisher;
 
+/*
+ * NewsletterService is the back end for newsletter subscription and allows the management team to register news leter, get the publisher and get available newsletter 
+ */
 public class NewsletterService {
     private static final Map<String, NewsletterContentPublisher> newsletters = new HashMap<>();
 

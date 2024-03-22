@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+ * PaymentFormGUI is the GUI method that enables the user to choose the form of payement they want to use to purchase a book or put a deposit for rental items so if they were 
+ * over due they can charge the card
+ */
+
 public class PaymentFormGUI {
     private JFrame paymentFrame;
     private JLabel itemLabel;

@@ -20,6 +20,10 @@ public class RegistrationLoginGUI {
     private JComboBox<String> userTypeCombo;
     private static final String CSV_FILE = "users.csv";
 
+    /*
+     * RegistrationLoginGUI allows the users to register and log in and direct them to their relevent dashboard
+     */
+    
     public RegistrationLoginGUI() {
         initializeUI();
     }

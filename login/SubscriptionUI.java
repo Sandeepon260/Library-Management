@@ -11,6 +11,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/*
+ * this GUI allows the users to subscribe to a news letter, unsubscribe and recieve notifcations when there is a new verion for their favourite newsletter  they can also open the link 
+ * that guides them to the online news letter
+ */
 public class SubscriptionUI extends JFrame {
 
     private User currentUser; // Assume this is initialized elsewhere

@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+ * RentalSystemGUI is the GUI that allows the users to rent an item from the library, return the item, check overdue item and purchase an ite
+ */
 public class RentalSystemGUI {
     private JFrame rentalFrame;
     private JList<String> availableItemsList;

@@ -1,6 +1,8 @@
 package login;
 
-//@author: Mehregan Mesgari
+/*
+ * the visitor class extends the client decorator and ensures the visitor can register and log in 
+ */
 
 public class Visitor extends ClientDecorator {
     public Visitor(Client decoratedClient) {

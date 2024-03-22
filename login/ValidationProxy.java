@@ -1,6 +1,8 @@
 package login;
 
-//@author: Mehregan Mesgari
+/*
+ * validation proxy implements the client and its the method that validates the users and ensures they have the correct email and password format 
+ */
 
 public class ValidationProxy implements Client {
     private Client realClient;

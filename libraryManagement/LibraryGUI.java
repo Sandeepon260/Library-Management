@@ -162,8 +162,26 @@ public class LibraryGUI {
 
         panel.add(btnReturnBook);
 
+        JButton btnCheckOverdue = new JButton("Check Overdue");
+        btnCheckOverdue.setBounds(330, 220, 150, 30);
+        btnCheckOverdue.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                checkOverdueButtonClicked();
+            }
+        });
+        panel.add(btnCheckOverdue);
 
-
+        
+        JButton btnRentBook = new JButton("Rent Book");
+        btnRentBook.setBounds(160, 220, 120, 30);
+        btnRentBook.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                rentBookButtonClicked();
+            }
+        });
+        panel.add(btnRentBook);
+        
+        
         frame.setVisible(true);
 
     }
@@ -267,7 +285,25 @@ public class LibraryGUI {
 
     }
 
+    private void checkOverdueButtonClicked() {
+//        List<LibraryItem> borrowedItems = studentLibrary.getBorrowedItems();
+//        boolean hasBorrowingPrivileges = studentLibrary.hasBorrowingPrivileges(borrowedItems);
+//        if (!hasBorrowingPrivileges) {
+//            JOptionPane.showMessageDialog(frame, "You have more than 3 items overdue. Borrowing privileges revoked.");
+//        } else {
+//            JOptionPane.showMessageDialog(frame, "You have less than 3 items overdue. Borrowing privileges active.");
+//        }
+    	
+    		String out = studentLibrary.check_overdues(emailField.getText());
+    		JOptionPane.showMessageDialog(frame, out);
+    }
 
+    private void rentBookButtonClicked() {
+        String titleToRent = titleField.getText();
+        String emailToRent = emailField.getText();
+        studentLibrary.rentItem(titleToRent, emailToRent); // Call rentItem method from StudentLibrary
+        JOptionPane.showMessageDialog(frame, "Book '" + titleToRent + "' rented successfully!");
+    }
 
     private void borrowBookButtonClicked() {
 
@@ -341,3 +377,19 @@ public class LibraryGUI {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

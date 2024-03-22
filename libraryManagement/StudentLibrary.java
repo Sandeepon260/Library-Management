@@ -1,5 +1,7 @@
 package libraryManagement;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 import items.Book;
@@ -69,6 +71,41 @@ public class StudentLibrary extends Library {
         	 item.setBorrowerEmail(null); 
         }
     }
+    
+    
+    
+    public void rentItem(String title,String email)
+    {
+    	for (LibraryItem libraryItem : items) {
+			
+    		if (libraryItem.getTitle().equals(title))
+    		{
+    			// book found
+    			libraryItem.setBorrowerEmail(email);
+    			libraryItem.rentItem(LocalDate.now(ZoneId.systemDefault()), 30, email);
+//    			libraryItem.rentItem(LocalDate.of(2024, 3, 12), 30, email);
+    			break;
+    		}
+		}
+    }
+    public String check_overdues(String email)
+    {
+    	String out="Title					overdue amount:\n";
+    	for (LibraryItem libraryItem : items) {
+			
+    		if (libraryItem.getBorrowerEmail().equals(email))
+    		{
+    			// book found
+    			out += libraryItem.getTitle() +" : " + libraryItem.calculateOverduePenalty()+"\n";
+    			
+    		}
+		}
+    	return out;
+    	
+    }
+    
+    
+    
 }
 
 

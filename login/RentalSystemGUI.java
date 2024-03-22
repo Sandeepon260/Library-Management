@@ -33,9 +33,27 @@ public class RentalSystemGUI {
         viewOverdueButton = new JButton("View Overdue Items");
 
         // data source.
-        availableItemsModel.addElement("Book 1");
-        availableItemsModel.addElement("Magazine 1");
-        availableItemsModel.addElement("CD 1");
+        availableItemsModel.addElement("CD : Brigerton");
+        availableItemsModel.addElement("Magazine : Vouge Magazine");
+        availableItemsModel.addElement("Book: To kil the Mocikngbird");
+        availableItemsModel.addElement("Book:1984");
+        availableItemsModel.addElement("Book:Lord of the Rings");
+        availableItemsModel.addElement("Magazine : Good House Keeping");
+        availableItemsModel.addElement("Book:The Catcher in the Rye");
+        availableItemsModel.addElement("Magazine : Best");
+        availableItemsModel.addElement("Magazine : Elle");
+        availableItemsModel.addElement("CD:The Great Gatsby");
+        availableItemsModel.addElement("Book:The lion, the witch and the Wardrobe");
+        availableItemsModel.addElement("Book:Lord of Flies");
+        availableItemsModel.addElement("Book:Animal Farm");
+        availableItemsModel.addElement("Book:Catch 22");
+        availableItemsModel.addElement("Book:The grapes of weath");
+        
+        rentedItemsModel.addElement("Book:Harry Potter and the Sorcerer's Stone");
+        rentedItemsModel.addElement("CD:In the Aeroplane Over the Sea");
+        rentedItemsModel.addElement("Magazine:National Geographic");
+
+        
     }
 
     private void setupLayout() {
@@ -85,8 +103,8 @@ public class RentalSystemGUI {
     private void showOverdueItems() {
     
         String overdueItems = "Overdue Items:\n" +
-                              "- Book 1 (Due: 2023-03-10)\n" +
-                              "- Magazine 2 (Due: 2023-03-05)\n";
+                              "- Harry Potter (Due: 2024-01-10)\n" +
+                              "- Ladies Magazine (Due: 2023-12-21)\n";
 
         JOptionPane.showMessageDialog(rentalFrame, overdueItems);
     }

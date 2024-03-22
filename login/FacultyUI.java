@@ -18,6 +18,10 @@ public class FacultyUI extends JFrame {
         this.currentFaculty = faculty;
         setTitle("Faculty Textbook Update Notifications");
         setSize(400, 300);
+        Course course = new Course("Software Engineering");
+        Textbook textbook = new Textbook("Design Patterns", 1);
+        course.addTextbook(textbook);
+        faculty.assignCourse(course);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUI();
     }
@@ -76,16 +80,12 @@ public class FacultyUI extends JFrame {
             }
         }
     }
-    
 
     public static void main(String[] args) {
         // This main method is for demonstration. Initialize your faculty and courses here.
     	FacultyClient faculty = new FacultyClient(new BasicClient());
         // Example course and textbook setup
-        Course course = new Course("Software Engineering");
-        Textbook textbook = new Textbook("Design Patterns", 1);
-        course.addTextbook(textbook);
-        faculty.assignCourse(course);
+        
         
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

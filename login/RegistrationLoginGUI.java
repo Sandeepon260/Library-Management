@@ -1,5 +1,11 @@
 package login;
 import javax.swing.*;
+
+/*
+ * registration and login GUI is the first step of this system where the user can register. If they are a faculty, student, and non dfaculty staff, they need to be verified by 
+ * the management before they can access the system. Then the users can login based on their role. There is a general dashboard for students, non faculty staff and the visitors. Other
+ * users have their own dashboard with their own funcitonalotes
+ */
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
@@ -107,15 +113,14 @@ public class RegistrationLoginGUI {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] userDetails = line.split(",");
-                // Check if the CSV line has at least three elements: email, password, and userType
                 if (userDetails.length > 2 && userDetails[0].equals(email) && userDetails[1].equals(password)) {
-                    return userDetails[2]; // Return the userType
+                    return userDetails[2];
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return null; // Return null if user not found, password is incorrect, or entry is malformed
+        return null; 
     }
 
     private boolean userExists(String email) {
@@ -124,13 +129,13 @@ public class RegistrationLoginGUI {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length > 0 && data[0].equals(email)) {
-                    return true; // User found
+                    return true; 
                 }
             }
         } catch (IOException e) {
             System.err.println("Error reading from CSV file: " + e.getMessage());
         }
-        return false; // User not found
+        return false; 
     }
 
     public static void main(String[] args) {

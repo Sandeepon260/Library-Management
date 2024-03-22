@@ -25,7 +25,7 @@ public class RegistrationLoginGUI {
         frame.setLayout(new GridLayout(5, 2));
 
         frame.add(new JLabel("User Type:"));
-        String[] userTypes = {"Student", "Faculty", "Non-Faculty", "Visitor", "Management"}; 
+        String[] userTypes = {"Student", "Faculty", "Non-Faculty", "Visitor", "Management"}; // Added Management
         userTypeCombo = new JComboBox<>(userTypes);
         frame.add(userTypeCombo);
 
@@ -91,7 +91,16 @@ public class RegistrationLoginGUI {
             JOptionPane.showMessageDialog(frame, "Login successful as Management.");
             frame.dispose(); // Close the login window
             new ManagementDashboardGUI(); // Open the ManagementDashboardGUI for Management users
-        } else {
+        }
+        
+       else if (userType.equals("Faculty")) {
+        	JOptionPane.showMessageDialog(frame, "Login successful as Faculty");
+        	//new FacultyUI(new BasicClient());     
+        	new FacultyDashboardGUI();
+        } 
+        
+        
+        else {
             JOptionPane.showMessageDialog(frame, "Login successful.");
             frame.dispose(); // Close the login window
             new DashboardGUI(); // Open the DashboardGUI for non-Management users

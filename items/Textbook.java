@@ -20,6 +20,11 @@ public class Textbook {
         this.title = title;
         this.edition = edition;
     }
+    
+    @Override
+    public String toString() {
+        return this.title;
+    }
 
     public void addObserver(FacultyClient faculty) {
         observers.add(faculty);

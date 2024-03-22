@@ -1,5 +1,7 @@
 package search;
 import items.*;
+import libraryManagement.*;
+import login.*;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -130,8 +132,6 @@ public class SearchGUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 
-		actionCounter += 1;
-		System.out.println("actionCounter; " + actionCounter);
 		
 		if (e.getSource() == SearchButton) {
 			String searchTerm = SearchField.getText().trim();
@@ -190,17 +190,7 @@ public class SearchGUI implements ActionListener{
 				e1.printStackTrace();
 			}
 	        
-//	        System.out.println(LibraryItems.get(0).getDetails());
-//	        System.out.println(LibraryItems.size());
-	        
-	        
-//	          LibraryItems.add(new LibraryItem("0", true, "The great Gatsby","0"));
-//	        LibraryItems.add(new LibraryItem("1", true,"To Kill a Mockingbird novel help", "0"));
-//	        LibraryItems.add(new LibraryItem("2", true,"1984", "0"));
-//	        LibraryItems.add(new LibraryItem("3", true,"Pride and Prejudice", "0"));
-//	        LibraryItems.add(new LibraryItem("4", true,"The Catcher in the Rye", "0"));
-//	        LibraryItems.add(new LibraryItem("5", true,"The Catcher in the Rye novel help", "0"));
-	        //create csv later
+
 	        
 	        
 			// Determine the appropriate strategy based on the input
@@ -222,43 +212,11 @@ public class SearchGUI implements ActionListener{
 		}
 		
 		if (e.getSource() == rentButton) {
-//			try {
-//				BufferedReader br = new BufferedReader(new FileReader(path));
-//				String line;
-//				line = br.readLine();
-//				
-//				String updatedCSV = "";
-//				Boolean flag = false;
-//				while((line = br.readLine()) != null) {
-//					String[] values = line.split(",");
-//					String ID = values[0];
-//					String type = values[1];
-//					String title = values[2];
-//					String author = values[3];
-//					boolean purchasable = values[4].equals("true") ?  true : false;
-//					String location= values[5];
-//					boolean available = values[6].equals("true") ?  true : false;
-//					if(title.equals(ExactMatchResult.get(0).getTitle()) & available == true & flag == false) {
-//						values[6] = "false";
-//						String updatedLine = "";
-//						for (String val: values) {
-//							updatedLine += val + ",";
-//							flag = true;
-//						}
-//						updatedCSV += updatedLine + "\n";
-//						
-//					}else {
-//						updatedCSV += line + "\n";
-//					}
-//				}
-//				BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-//	            writer.write(updatedCSV);
-//
-//			}
-//			 catch (IOException e2) {
-//	            e2.printStackTrace();
-//	        }
+			new RentalSystemGUI();
 	    }
+		if (e.getSource() == purchase){
+			new PaymentFormGUI(new RentalSystemGUI(), ExactMatchResult.get(0).getDetails());
+		}
 	}
 			
 			

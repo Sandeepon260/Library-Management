@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-
+// This is the GUI for the search functionality where the context is set and switched for exact match and recommendations. 
 public class SearchGUI implements ActionListener{
 	String userEmail;
 	JFrame frame = new JFrame();
@@ -136,17 +136,15 @@ public class SearchGUI implements ActionListener{
 	        
 	        SearchStrategy recommendationsStrategy = new recommendations();
 
-	        // Create the LibraryItemSearchContext with the searchByTitleStrategy
+	        
 	        SearchContext searchContext = new SearchContext(searchByTitleStrategy);
 	        
-	        //
+	        
 	        
 	        
 	        
 	        List<String> LibraryItems = new ArrayList<>();
-//	        
-	        
-//	        String line = "";
+
 	        try {
 				BufferedReader br = new BufferedReader(new FileReader(path));
 				String line = br.readLine();
@@ -176,7 +174,7 @@ public class SearchGUI implements ActionListener{
 			}
 	        
 	        
-			// Determine the appropriate strategy based on the input
+			
 	        if(searchTerm.equals("")) {
 	        	ExactMatchResult = new ArrayList<>();
 	        	RecommendationResult = new ArrayList<>();
@@ -188,9 +186,7 @@ public class SearchGUI implements ActionListener{
 			    searchContext = new SearchContext(recommendationsStrategy);
 			    RecommendationResult = searchContext.search(LibraryItems, searchTerm);
 			}
-//			
-//	        panel.revalidate();
-//			panel.repaint();
+
 			createGUI();
 		}
 		

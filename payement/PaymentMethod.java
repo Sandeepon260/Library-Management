@@ -5,14 +5,14 @@ public interface PaymentMethod {
 void processPayment(double amount);
 }
 
-//Concrete Payment Method Implementations
+//Implements the PaymentMethod to process payments using a credit card.
  class CreditCardPayment implements PaymentMethod {
 @Override
 public void processPayment(double amount) {
     System.out.println("Processing credit card payment: $" + amount);
 }
 }
-
+// Implements the PaymentMethod to process payments using a debit card.
  class DebitCardPayment implements PaymentMethod {
 @Override
 public void processPayment(double amount) {
@@ -20,6 +20,7 @@ public void processPayment(double amount) {
 }
 }
 
+//Implements the PaymentMethod to process payments using a mobile wallet.
  class MobileWalletPayment implements PaymentMethod {
 @Override
 public void processPayment(double amount) {
@@ -27,7 +28,7 @@ public void processPayment(double amount) {
 }
 }
 
-//PaymentFactory
+//PaymentFactory is a factory class for creating instances of PaymentMethod based on a given type.
  class PaymentFactory {
 public static PaymentMethod getPaymentMethod(String type) {
     switch (type.toLowerCase()) {

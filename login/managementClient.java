@@ -1,6 +1,8 @@
 package login;
 
-//@author: Mehregan Mesgari
+/*
+ * the managementClient is a typr of client that extends the ClientDecorator class and allows management to register and have access to their dashboard 
+ */
 
 public class managementClient extends ClientDecorator {
   public managementClient(Client decoratedClient) {

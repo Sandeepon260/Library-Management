@@ -9,6 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import items.LibraryItemFactory;
 
+/*
+ * FacultyDashboardGUI is the Dashboard GUI for the faculty that has an extra functionality for the faculty to check 
+ * the books they are assigned to and subscribe
+ */
 public class FacultyDashboardGUI extends JFrame {
 
 	private JButton addNewItemsButton;

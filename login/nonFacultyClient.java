@@ -1,6 +1,9 @@
 package login;
 
-//@author: Mehregan Mesgari
+/*
+ * nonFacultyClient extends the client decorator class and allows the non faculty members to register and log in to their 
+ * dashboard
+ */
 
 public class nonFacultyClient extends ClientDecorator {
 	    public nonFacultyClient(Client decoratedClient) {

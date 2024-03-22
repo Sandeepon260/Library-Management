@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 import items.*;
 
+/*
+ * FacultyUI is the UI for the faculty that is added to their dashboard to enable the subscription to notifactions for text books
+ */
+
 public class FacultyUI extends JFrame {
     private FacultyClient currentFaculty;
     private JList<Textbook> textbookList;

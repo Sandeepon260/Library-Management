@@ -3,6 +3,9 @@ package login;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * NewsletterContentPublisher uses the NewsletterContentObserver to implement the observer pattern for the user to recive updates on the newsletter they have subscribed to
+ */
 public class NewsletterContentPublisher {
     private List<NewsletterContentObserver> observers = new ArrayList<>();
     private String latestContent;

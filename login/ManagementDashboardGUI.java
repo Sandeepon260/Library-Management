@@ -10,6 +10,10 @@ import java.io.IOException;
 
 import items.LibraryItemFactory;
 
+/*
+ * ManagementDashboardGUI is the dasboard for management that allows them to approve a user, approve a requested book and add items to the library
+ */
+
 public class ManagementDashboardGUI extends JFrame {
 
     private JButton addNewItemsButton;
@@ -42,7 +46,6 @@ public class ManagementDashboardGUI extends JFrame {
     }
 
     private void addNewItems(ActionEvent e) {
-        // Create a new dialog to gather information for creating a new item
         JDialog newItemDialog = new JDialog(this, "Add New Item", true);
         newItemDialog.setSize(400, 300);
         newItemDialog.setLayout(new GridLayout(8, 2));
@@ -57,7 +60,6 @@ public class ManagementDashboardGUI extends JFrame {
 
         JButton createItemButton = new JButton("Create Item");
         createItemButton.addActionListener(event -> {
-            // Get the values from the fields
             String itemType = (String) itemTypeComboBox.getSelectedItem();
             String location = locationField.getText();
             String price = priceField.getText();
@@ -66,14 +68,12 @@ public class ManagementDashboardGUI extends JFrame {
             String title = titleField.getText();
             String author = authorField.getText();
 
-            // Call the createItem method with the gathered information
+    
             LibraryItemFactory.createItem(itemType.toLowerCase(), location, price, rented, purchasable, title, author);
 
-            // Close the dialog after creating the item
             newItemDialog.dispose();
         });
 
-        // Add components to the dialog
         newItemDialog.add(new JLabel("Item Type:"));
         newItemDialog.add(itemTypeComboBox);
         newItemDialog.add(new JLabel("Location:"));
@@ -88,12 +88,10 @@ public class ManagementDashboardGUI extends JFrame {
         newItemDialog.add(authorField);
         newItemDialog.add(createItemButton);
 
-        // Set dialog visibility
         newItemDialog.setVisible(true);
     }
 
     private void approveRequests(ActionEvent e) {
-        // Implement the action to open the BookApprovalGUI
         new BookApprovalGUI().setVisible(true);
     }
 
@@ -103,30 +101,29 @@ public class ManagementDashboardGUI extends JFrame {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println("Read line: " + line); // Print the line read from the file
+                System.out.println("Read line: " + line); 
                 String[] parts = line.split(",");
                 if (parts.length >= 4) {
-                    String email = parts[0].trim(); // Assuming email is the first field
-                    String status = parts[3].trim(); // Assuming status is the last field
-                    // Check if the role is Student, Faculty, or Non-Faculty and status is pending
+                    String email = parts[0].trim(); 
+                    String status = parts[3].trim(); 
                     if ((parts[2].trim().equals("Student") || parts[2].trim().equals("Faculty") || parts[2].trim().equals("Non-Faculty")) && status.equalsIgnoreCase("pending")) {
-                        usersModel.addElement(email); // Add the email address to the list model
+                        usersModel.addElement(email);
                     }
                 }
             }
-            // Display the list of users with pending status
+ 
             if (!usersModel.isEmpty()) {
                 JList<String> usersList = new JList<>(usersModel);
                 JScrollPane scrollPane = new JScrollPane(usersList);
                 JOptionPane.showMessageDialog(null, scrollPane, "Select a User to Approve", JOptionPane.INFORMATION_MESSAGE);
 
-                // Check if a user is selected
+   
                 if (!usersList.isSelectionEmpty()) {
                     String selectedUserEmail = usersList.getSelectedValue();
-                    System.out.println("Selected user: " + selectedUserEmail); // Print the selected user's email address
+                    System.out.println("Selected user: " + selectedUserEmail);
                     int confirm = JOptionPane.showConfirmDialog(this, "Approve this user?\n" + selectedUserEmail, "Approve User", JOptionPane.YES_NO_OPTION);
 
-                    // If user confirms, update the file
+               
                     if (confirm == JOptionPane.YES_OPTION) {
                         updateUsersFile(filePath, selectedUserEmail);
                     }
@@ -149,10 +146,10 @@ public class ManagementDashboardGUI extends JFrame {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 4) {
-                    String email = parts[0].trim(); // Assuming email is the first field
-                    String status = parts[3].trim(); // Assuming status is the last field
+                    String email = parts[0].trim(); 
+                    String status = parts[3].trim(); 
                     if (email.equals(userToApprove) && status.equalsIgnoreCase("pending")) {
-                        parts[3] = "Approved"; // Change status to Approved
+                        parts[3] = "Approved"; 
                     }
                 }
                 newContent.append(String.join(",", parts)).append("\n");

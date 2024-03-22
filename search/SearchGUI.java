@@ -159,13 +159,13 @@ public class SearchGUI implements ActionListener{
 					String[] values = line.split(",");
 					String ID = values[0];
 					String type = values[1];
-					String location= values[2];
-					String title = values[3];
-					String author = values[4];
-					boolean purchasable = values[5].equals("true") ?  true : false;
-					boolean available = values[6].equals("true") ?  true : false;
-					if(available) {
-						items.LibraryItem newLibraryItem = LibraryItemFactory.createItem(type, location, author, purchasable, available, title, author);
+					String title = values[2];
+					String author = values[3];
+					boolean purchasable = values[4].equals("true") ?  true : false;
+					String price = values[5];
+					boolean rented = values[6].equals("true") ?  true : false;
+					if(!rented) {
+						items.LibraryItem newLibraryItem = LibraryItemFactory.createItem(type, "", price, rented, purchasable, title, author);
 //						switch (type) {
 //							case "Book":
 //								newLibraryItem = new Book(location, purchasable, title, author);

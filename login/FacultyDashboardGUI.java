@@ -28,22 +28,18 @@ public class FacultyDashboardGUI extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(600, 400);
 
-		// Layout and components for demonstration
 		frame.setLayout(new BorderLayout());
 		JLabel welcomeLabel = new JLabel("Welcome to YorkU Library Management System", SwingConstants.CENTER);
 		frame.add(welcomeLabel, BorderLayout.NORTH);
 
-		// Panel for functionalities
 		JPanel panel = new JPanel(new GridLayout(4, 1));
 		borrowedBooksButton = new JButton("List Borrowed Books");
 		JButton searchBooksButton = new JButton("Search for Books");
 		JButton subscribeNewsletterButton = new JButton("Subscribe to Newsletter");
 		facultyButton = new JButton("Faculty Tab");
 
-		// Adding action listeners for borrowed books button
 		borrowedBooksButton.addActionListener(e -> openRentalSystem());
 
-		// searchBookButton.addActionListener(e -> openSearch());
 		facultyButton.addActionListener(this::facultyButton);
 
 		panel.add(borrowedBooksButton);
@@ -56,7 +52,6 @@ public class FacultyDashboardGUI extends JFrame {
 	}
 
 	private void openRentalSystem() {
-		// This should open the RentalSystemGUI
 		RentalSystemGUI rentalSystem = new RentalSystemGUI();
 		rentalSystem.displayGUI();
 	}

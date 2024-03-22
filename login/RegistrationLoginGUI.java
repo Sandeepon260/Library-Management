@@ -54,23 +54,20 @@ public class RegistrationLoginGUI {
         String password = new String(passwordField.getPassword()).trim();
         String userType = (String) userTypeCombo.getSelectedItem();
 
-        // Email validation for "@" presence and ".com" or ".ca" ending
         if (!email.contains("@") || (!email.endsWith(".com") && !email.endsWith(".ca"))) {
             JOptionPane.showMessageDialog(frame, "Invalid email format", "Registration Error", JOptionPane.ERROR_MESSAGE);
-            return; // Exit the method without attempting to register
+            return; 
         }
 
-        // Check if the user already exists
         if (userExists(email)) {
             JOptionPane.showMessageDialog(frame, "User already exists. Registration failed.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Exit the method without attempting to register
+            return; 
         }
         
-        // Write the new user's details to the CSV file
         try (FileWriter fw = new FileWriter(CSV_FILE, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(email + "," + password + "," + userType + "," + "pending"); // Include userType in the entry
+            out.println(email + "," + password + "," + userType + "," + "pending");
             JOptionPane.showMessageDialog(frame, "Registration successful.", "Registration", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(frame, "Failed to register user: " + ex.getMessage(), "Registration Error", JOptionPane.ERROR_MESSAGE);
@@ -82,28 +79,26 @@ public class RegistrationLoginGUI {
         String email = emailField.getText();
         String password = new String(passwordField.getPassword());
 
-        // This method needs to be defined to check the password and get user type from CSV
         String userType = getUserTypeFromCSV(email, password);
 
         if (userType == null) {
             JOptionPane.showMessageDialog(frame, "Login failed: Incorrect email or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
         } else if (userType.equals("Management")) {
             JOptionPane.showMessageDialog(frame, "Login successful as Management.");
-            frame.dispose(); // Close the login window
-            new ManagementDashboardGUI(); // Open the ManagementDashboardGUI for Management users
+            frame.dispose(); 
+            new ManagementDashboardGUI(); 
         }
         
        else if (userType.equals("Faculty")) {
-        	JOptionPane.showMessageDialog(frame, "Login successful as Faculty");
-        	//new FacultyUI(new BasicClient());     
+        	JOptionPane.showMessageDialog(frame, "Login successful as Faculty");     
         	new FacultyDashboardGUI();
         } 
         
         
         else {
             JOptionPane.showMessageDialog(frame, "Login successful.");
-            frame.dispose(); // Close the login window
-            new DashboardGUI(); // Open the DashboardGUI for non-Management users
+            frame.dispose(); 
+            new DashboardGUI(); 
         }
     }
 

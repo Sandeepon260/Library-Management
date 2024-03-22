@@ -74,6 +74,7 @@ public class SubscriptionUI extends JFrame {
     }
 
 
+
     private void manageSubscription(boolean isSubscribe, String newsletter) {
         if (isSubscribe) {
             currentUser.subscribeToNewsletter(newsletter);
@@ -105,5 +106,16 @@ public class SubscriptionUI extends JFrame {
         }
     }
 
-    // Main method and other parts of the class remain unchanged
+    public static void main(String[] args) {
+        // Initialize the user and the newsletter service for demonstration purposes
+        User user = new User("user@example.com"); // Replace with actual user retrieval logic
+        NewsletterService.registerNewsletter("NY Times", new NewsletterContentPublisher()); // Dummy implementation
+        NewsletterService.registerNewsletter("Tech News", new NewsletterContentPublisher()); // Dummy implementation
+        
+        SwingUtilities.invokeLater(() -> {
+            SubscriptionUI frame = new SubscriptionUI(user);
+            frame.setVisible(true);
+        });
+    }
+
 }

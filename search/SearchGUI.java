@@ -61,7 +61,6 @@ public class SearchGUI implements ActionListener{
 
 		
 		constraints.gridx = 0;
-//        constraints.gridwidth = ;
 
 		if(!ExactMatchResult.isEmpty()) {
             constraints.gridy += 1;

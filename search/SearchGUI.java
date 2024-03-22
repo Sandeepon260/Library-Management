@@ -159,7 +159,7 @@ public class SearchGUI implements ActionListener{
 					boolean rented = values[6].equals("true") ?  true : false;
 					if(!rented) {
 						if(type.equals("Book")) {
-							System.out.println("Title to add: "+ title);
+							
 							LibraryItems.add(title);
 						}
 						

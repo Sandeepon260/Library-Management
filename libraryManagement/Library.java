@@ -7,6 +7,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * library is the main library class of this project that is connected to a Library.csv file. It has functionalities such as enabling rental, disabling rentals
+ * writing to the CSV file, finding item and more. These funcitonalities make it easier for other classes to operate and read and write to the library.csv
+ *  */
+
 public class Library {
     private static final String CSV_FILE_PATH = "library.csv";
     static List<LibraryItem> items=new ArrayList<LibraryItem>();

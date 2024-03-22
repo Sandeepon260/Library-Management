@@ -16,6 +16,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 
+/*
+ * this is the libraryGUI where the user can search a book by ttile and item type, they can add the item to their list, disp;ay the virtual copy if aailable, borrow the book, return the book 
+ * rent it or check if its overdue
+ */
 
 public class LibraryGUI {
 
@@ -59,8 +63,7 @@ public class LibraryGUI {
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
 
-        panel.setLayout(null); // Using null layout
-
+        panel.setLayout(null);
 
 
         addLabelAndTextField(panel, "Item Type:", 20, 20);
@@ -135,11 +138,7 @@ public class LibraryGUI {
 
             public void actionPerformed(ActionEvent e) {
 
-                // Get the title of the book to return
-
                 String titleToReturn = JOptionPane.showInputDialog(frame, "Enter the title of the book to return:");
-
-                // Find the book by title and return it
 
                 LibraryItem bookToReturn = studentLibrary.findItemByTitle(titleToReturn);
 
@@ -207,10 +206,7 @@ public class LibraryGUI {
         textField.setColumns(10);
 
 
-
-        // Assign the text field to the corresponding instance variable
-
-        if (labelText.equals("Item Type:")) {
+       if (labelText.equals("Item Type:")) {
 
             itemTypeField = textField;
 
@@ -242,8 +238,6 @@ public class LibraryGUI {
 
 
 
-        // Call the addItem method here with the provided values
-
         studentLibrary.addItem(itemType, title, additionalInfo);
 
        
@@ -253,7 +247,6 @@ public class LibraryGUI {
                 "student.");
 
 
-        // Clear the fields after adding the item
 
         clearTextFields();
 
@@ -265,16 +258,14 @@ public class LibraryGUI {
 
         String studentEmail = emailField.getText();
 
-        // Call the displayVirtualCopies method here with the provided email
 
         displayVirtualCopies(studentLibrary, studentEmail);
 
 
 
-        // Clear the email field after displaying virtual copies
 
         clearTextFields();
-        // update on available books
+
        
         try {
             URI uri = new URI("https://ocul-yor.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma991538392705151&context=L&vid=01OCUL_YOR:YOR_DEFAULT&lang=en&search_scope=OCULDiscoveryNetwork&adaptor=Local%20Search%20Engine&tab=OCULDiscoveryNetwork&query=any,contains,Introduction%20to%20programming&mode=basic");
@@ -286,13 +277,7 @@ public class LibraryGUI {
     }
 
     private void checkOverdueButtonClicked() {
-//        List<LibraryItem> borrowedItems = studentLibrary.getBorrowedItems();
-//        boolean hasBorrowingPrivileges = studentLibrary.hasBorrowingPrivileges(borrowedItems);
-//        if (!hasBorrowingPrivileges) {
-//            JOptionPane.showMessageDialog(frame, "You have more than 3 items overdue. Borrowing privileges revoked.");
-//        } else {
-//            JOptionPane.showMessageDialog(frame, "You have less than 3 items overdue. Borrowing privileges active.");
-//        }
+
     	
     		String out = studentLibrary.check_overdues(emailField.getText());
     		JOptionPane.showMessageDialog(frame, out);

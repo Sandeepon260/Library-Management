@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+// Sandeepon Saha: concrete strategy class to generate the recommendations based on the user input. The text similarity algorithm used here is to find matches of the words from the search prompt within the titles of the book to find similarities and generate recommendations. 
 public class recommendations implements SearchStrategy {
 
 	@Override

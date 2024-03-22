@@ -4,6 +4,11 @@ import java.util.List;
 
 import items.LibraryItem;
 
+/*
+ * BasicClient is the basic version of the client that will pass onto decorator to add the other needed features to 
+ * this class contains an DB and an arraylist to keep track of the borrowed items for each user
+ */
+
 class BasicClient implements Client {
     private static final String CSV_FILE = "users.csv";
     public ArrayList<LibraryItem> borrowed = new ArrayList<>();
@@ -19,7 +24,7 @@ class BasicClient implements Client {
         try (FileWriter fw = new FileWriter(CSV_FILE, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(email + "," + password + "," + role + "," + "pending"); // Include approved status
+            out.println(email + "," + password + "," + role + "," + "pending");
             System.out.println("Registration successful.");
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
@@ -39,10 +44,9 @@ class BasicClient implements Client {
         } catch (IOException e) {
             System.err.println("Error reading from CSV file: " + e.getMessage());
         }
-        return null; // Email not found or error occurred
+        return null; 
     }
 
-    // Add a method to get the role of a user
     public String getRole(String email) {
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
@@ -55,19 +59,16 @@ class BasicClient implements Client {
         } catch (IOException e) {
             System.err.println("Error reading from CSV file: " + e.getMessage());
         }
-        return null; // Email not found or error occurred
+        return null; 
     }
 
-    // Add a method to set the validated status of a user
     public void setValidatedStatus(String email, boolean validated) {
-        // Load existing data
         List<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data[0].equals(email)) {
-                    // Update the validated status
                     data[3] = String.valueOf(validated);
                     line = String.join(",", data);
                 }
@@ -77,7 +78,6 @@ class BasicClient implements Client {
             System.err.println("Error reading from CSV file: " + e.getMessage());
         }
 
-        // Rewrite the CSV file with updated data
         try (FileWriter fw = new FileWriter(CSV_FILE);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
@@ -95,13 +95,13 @@ class BasicClient implements Client {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data[0].equals(email)) {
-                    return true; // Email already exists
+                    return true;
                 }
             }
         } catch (IOException e) {
             System.err.println("Error reading from CSV file: " + e.getMessage());
         }
-        return false; // Email not found or error occurred
+        return false;
     }
 
 

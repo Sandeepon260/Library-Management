@@ -9,6 +9,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/*
+ * BookApprovalGUI is a GUI that extends a button under the Management dashboard and allows the management to approve 
+ * a book that is requested by a user  this class uses the rquestedBook.csv and retrive the info then if the book 
+ * is approved, it gatheres some additionam info and adds the book to the library.csv
+ */
+
+
 public class BookApprovalGUI extends JFrame {
     private JList<String> textbookList;
     private JList<String> personalReadingList;
@@ -69,11 +76,9 @@ public class BookApprovalGUI extends JFrame {
                     String bookName = parts[1];
                     String course = parts[2];
                     int priority = Integer.parseInt(parts[3]);
-                    String status = parts.length >= 5 ? parts[4].trim() : ""; // Get the status if available
-
-                    // Check if the status is "Approved"
+                    String status = parts.length >= 5 ? parts[4].trim() : ""; 
                     if (status.equalsIgnoreCase("Approved")) {
-                        continue; // Skip this book if already approved
+                        continue; 
                     }
 
                     if (bookType.equalsIgnoreCase("Textbook")) {
@@ -94,22 +99,20 @@ public class BookApprovalGUI extends JFrame {
         JList<String> selectedList = itemType.equals("Textbook") ? textbookList : personalReadingList;
         String selectedValue = selectedList.getSelectedValue();
         if (selectedValue != null) {
-            // Differentiate between textbooks and personal readings for title extraction
             String title;
             if (itemType.equals("Textbook")) {
-                title = selectedValue.split(" - ")[1]; // For textbooks, assuming the format "Course Code - Title"
+                title = selectedValue.split(" - ")[1];
             } else {
-                title = selectedValue; // For personal readings, the entire selection is the title
+                title = selectedValue; 
             }
 
-            // Popup to collect additional information
             JTextField locationField = new JTextField();
             JTextField priceField = new JTextField();
             JCheckBox purchasableCheckbox = new JCheckBox("Purchasable", true);
             JCheckBox rentedCheckbox = new JCheckBox("Rented", false);
             JTextField titleField = new JTextField(title, 20);
             JTextField authorField = new JTextField();
-            titleField.setEditable(false); // Assuming title is not editable
+            titleField.setEditable(false); 
 
             Object[] message = {
                 "Location:", locationField,
@@ -124,9 +127,9 @@ public class BookApprovalGUI extends JFrame {
             if (option == JOptionPane.OK_OPTION) {
                 LibraryItemFactory.createItem("book", locationField.getText(), priceField.getText(), rentedCheckbox.isSelected(), purchasableCheckbox.isSelected(), titleField.getText(), authorField.getText());
                 
-                updateBookStatusInCSV(selectedValue, itemType); // Update the status in CSV file
+                updateBookStatusInCSV(selectedValue, itemType); 
                 
-                refreshLists(); // Refresh the list to reflect changes
+                refreshLists(); 
             }
         }
     }
@@ -139,7 +142,7 @@ public class BookApprovalGUI extends JFrame {
             while ((line = reader.readLine()) != null) {
                 if (line.contains(selectedValue)) {
                     String[] parts = line.split(",");
-                    parts[parts.length - 1] = "Approved"; // Update the status to Approved
+                    parts[parts.length - 1] = "Approved"; 
                     line = String.join(",", parts);
                 }
                 newContent.append(line).append("\n");
@@ -160,7 +163,7 @@ public class BookApprovalGUI extends JFrame {
     private void refreshLists() {
         textbookModel.clear();
         personalReadingModel.clear();
-        loadBooks(); // Re-load books to refresh the lists
+        loadBooks(); 
     }
 
     public static void main(String[] args) {

@@ -227,7 +227,7 @@ public class SearchGUI implements ActionListener{
 			new RentalSystemGUI();
 	    }
 		if (e.getSource() == purchase){
-			new 
+			new PaymentFormGUI(new RentalSystemGUI(), ExactMatchResult.get(0).getDetails());
 		}
 	}
 			

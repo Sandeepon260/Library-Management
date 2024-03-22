@@ -1,6 +1,7 @@
 package search;
 import items.*;
 import libraryManagement.*;
+import login.*;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -223,43 +224,11 @@ public class SearchGUI implements ActionListener{
 		}
 		
 		if (e.getSource() == rentButton) {
-//			try {
-//				BufferedReader br = new BufferedReader(new FileReader(path));
-//				String line;
-//				line = br.readLine();
-//				
-//				String updatedCSV = "";
-//				Boolean flag = false;
-//				while((line = br.readLine()) != null) {
-//					String[] values = line.split(",");
-//					String ID = values[0];
-//					String type = values[1];
-//					String title = values[2];
-//					String author = values[3];
-//					boolean purchasable = values[4].equals("true") ?  true : false;
-//					String location= values[5];
-//					boolean available = values[6].equals("true") ?  true : false;
-//					if(title.equals(ExactMatchResult.get(0).getTitle()) & available == true & flag == false) {
-//						values[6] = "false";
-//						String updatedLine = "";
-//						for (String val: values) {
-//							updatedLine += val + ",";
-//							flag = true;
-//						}
-//						updatedCSV += updatedLine + "\n";
-//						
-//					}else {
-//						updatedCSV += line + "\n";
-//					}
-//				}
-//				BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-//	            writer.write(updatedCSV);
-//
-//			}
-//			 catch (IOException e2) {
-//	            e2.printStackTrace();
-//	        }
+			new RentalSystemGUI();
 	    }
+		if (e.getSource() == purchase){
+			new 
+		}
 	}
 			
 			

@@ -1,6 +1,6 @@
 package login;
 
-// import search.*;
+import search.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,7 +31,7 @@ public class DashboardGUI {
         // Adding action listeners for borrowed books button
         borrowedBooksButton.addActionListener(e -> openRentalSystem());
 
-        // searchBookButton.addActionListener(e -> openSearch());
+        searchBookButton.addActionListener(e -> openSearch());
 
         panel.add(borrowedBooksButton);
         panel.add(searchBooksButton);
@@ -46,11 +46,11 @@ public class DashboardGUI {
         RentalSystemGUI rentalSystem = new RentalSystemGUI();
         rentalSystem.displayGUI();
     }
-    // private void openSearch(){
-    //     // This will open the search GUI
-    //     new SearchGUI();
+    private void openSearch(){
+        // This will open the search GUI
+        new SearchGUI();
         
-    // }
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(DashboardGUI::new);

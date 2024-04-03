@@ -9,7 +9,7 @@ import items.LibraryItem;
  * this class contains an DB and an arraylist to keep track of the borrowed items for each user
  */
 
-class BasicClient implements Client {
+public class BasicClient implements Client {
     private static final String CSV_FILE = "users.csv";
     public ArrayList<LibraryItem> borrowed = new ArrayList<>();
 
@@ -89,7 +89,7 @@ class BasicClient implements Client {
         }
     }
 
-    private boolean emailExists(String email) {
+    public boolean emailExists(String email) {
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {

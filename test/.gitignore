@@ -4,3 +4,10 @@
 /CourseTest.class
 /FacultyClientTest.class
 /ManagementClientTest.class
+/BookRequestManagerTest.class
+/BookRequestQueueTest.class
+/BookRequestTest.class
+/PaymentFactoryTest.class
+/SimpleNotificationFactoryTest.class
+/StudentLibraryTest.class
+/LibraryTestCases.class

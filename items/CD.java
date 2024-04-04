@@ -2,7 +2,7 @@ package items;
 
 //@author: Mehregan Mesgari
 
-class CD extends LibraryItem {
+public class CD extends LibraryItem {
     private String artist;
 
     public CD(String location, String price, boolean purchasable, boolean purchasable2, String title, String artist) {

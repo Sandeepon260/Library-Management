@@ -19,12 +19,18 @@ public class Course {
     }
 
     public void addTextbook(Textbook textbook) {
-        textbooks.add(textbook);
+        if (!textbooks.contains(textbook)) {
+            textbooks.add(textbook);
+        }
     }
+
     
     public void addFaculty(FacultyClient faculty) {
-        faculties.add(faculty);
+        if (!faculties.contains(faculty)) {
+            faculties.add(faculty);
+        }
     }
+
 
     public String getCourseId() { return courseId; }
     public List<Textbook> getTextbooks() { return textbooks; }

@@ -11,7 +11,7 @@ import items.Textbook;
  */
 
 public class FacultyClient extends ClientDecorator {
-	protected String type; 
+	public String type; 
 	private Set<Course> courses = new HashSet<>();
 	
     public FacultyClient(Client decoratedClient) {
@@ -35,6 +35,10 @@ public class FacultyClient extends ClientDecorator {
 
 	public void update(Textbook textbook) {
 		
+	}
+
+	public String getRole() {
+		return "Faculty";
 	}
     
 

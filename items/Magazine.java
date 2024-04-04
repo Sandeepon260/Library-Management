@@ -2,7 +2,7 @@ package items;
 
 //@author: Mehregan Mesgari
 
-class Magazine extends LibraryItem {
+public class Magazine extends LibraryItem {
     private String publisher;
 
     public Magazine(String location, String price, boolean purchasable, boolean purchasable2, String title,String publisher) {

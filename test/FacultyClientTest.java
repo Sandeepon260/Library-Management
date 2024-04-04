@@ -46,4 +46,53 @@ class FacultyClientTest {
     void testUpdate() {
         faculty.update(textbook);
     }
+    @Test
+    void testAssignMultipleCourses() {
+        Course course1 = new Course("CS102");
+        faculty.assignCourse(course);
+        faculty.assignCourse(course1);
+        assertEquals(2, faculty.getCourses().size(), "Faculty should have 2 courses assigned.");
+    }
+    @Test
+    void testAssignSameCourseTwice() {
+        faculty.assignCourse(course);
+        faculty.assignCourse(course);
+        assertEquals(1, faculty.getCourses().size(), "Assigning the same course twice should not increase the set size.");
+    }
+    @Test
+    void testRegisterOverridesRole() {
+        faculty.register("faculty2@example.com", "password", "Admin");
+        assertEquals("Faculty", faculty.getRole(), "Faculty registration should override role to 'Faculty'.");
+    }
+    @Test
+    void testAssignDifferentCourse() {
+        Course anotherCourse = new Course("EECS3311");
+        faculty.assignCourse(course);
+        faculty.assignCourse(anotherCourse);
+        assertTrue(faculty.getCourses().contains(anotherCourse), "Faculty should have the newly assigned course.");
+    }
+    @Test
+    void testCourseAssignmentIncreasesSize() {
+        int initialSize = faculty.getCourses().size();
+        faculty.assignCourse(course);
+        assertEquals(initialSize + 1, faculty.getCourses().size(), "Assigning a new course should increase the courses size by 1.");
+    }
+    @Test
+    void testInitialCoursesEmpty() {
+        assertTrue(faculty.getCourses().isEmpty(), "Newly created FacultyClient should have no courses assigned.");
+    }
+    @Test
+    void testAssignCourseDoesNotAcceptDuplicates() {
+        faculty.assignCourse(course);
+        faculty.assignCourse(course);
+        assertEquals(1, faculty.getCourses().size(), "Duplicate courses should not be added.");
+    }
+
+
+
+
+
+    
+
+
 }

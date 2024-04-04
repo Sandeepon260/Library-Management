@@ -71,10 +71,22 @@
 57,Book,Lord of the Rings,kj,false,kj,false
 58,Magazine,Good House Keeping,,false,,false
 59,CD,The Great Gatsby,,false,,false
-60,Book,A great Novel ,,false,,false1,Book,Book of Life,Unknown,false,Unknown,false
+60,Book,A great Novel ,,false,false,,,,Unknown,false,Unknown,false
 2,Book,dadad,dada,false,dada,false
 3,Book,a good book,dont know ,true,dont know ,true
 1,Book,An online book,unknown,true,unknown,true
 2,Book,Control systems,Prof,true,Prof,true
 1,CD,A kids movie,Unknown,true,Unknown,true
 2,Book,Systems and controling,Prof,false,Prof,false
+1,Book,The Lord of the Rings,J.R.R. Tolkien,false,J.R.R. Tolkien,false
+1,Book,The Lord of the Rings,J.R.R. Tolkien,false,J.R.R. Tolkien,false
+1,Book,The Lord of the Rings,J.R.R. Tolkien,false,J.R.R. Tolkien,false
+1,Book,The Lord of the Rings,J.R.R. Tolkien,false,J.R.R. Tolkien,false
+1,Book,The Pragmatic Programmer,Andrew Hunt,false,Andrew Hunt,false
+2,CD,Back in Black,AC/DC,true,AC/DC,true
+3,Magazine,Time,N/A,false,N/A,false
+4,CD,Dark Side of the Moon,Pink Floyd,true,Pink Floyd,true
+5,CD,Thriller,Michael Jackson,false,Michael Jackson,false
+6,Book,Clean Code,Robert C. Martin,true,Robert C. Martin,true
+7,Magazine,National Geographic,N/A,true,N/A,true
+8,Book,Effective Java,Joshua Bloch,false,Joshua Bloch,false

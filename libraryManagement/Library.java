@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Library {
     private static final String CSV_FILE_PATH = "library.csv";
-    static List<LibraryItem> items=new ArrayList<LibraryItem>();
+    public static List<LibraryItem> items=new ArrayList<LibraryItem>();
 
     public Library() {
         createCsvFile();
@@ -106,3 +106,4 @@ public class Library {
     }    
     
 }
+

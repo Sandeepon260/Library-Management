@@ -70,8 +70,8 @@ private static final int MAX_BORROWED_ITEMS = 10;
    
  // Update the database with the item's rental status
     private void updateDatabase() {
-        // Path to your CSV database
-        Path path = Paths.get("path/to/library.csv");
+        // Corrected path to point directly to the library.csv file
+    	 Path path = Paths.get("/Users/mehreganmesgari/Documents/GitHub/EECS3311/library.csv");
         try {
             List<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (int i = 0; i < fileContent.size(); i++) {
@@ -90,6 +90,7 @@ private static final int MAX_BORROWED_ITEMS = 10;
             e.printStackTrace();
         }
     }
+
    
    
     ///////

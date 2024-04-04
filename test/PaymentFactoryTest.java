@@ -12,7 +12,7 @@ public class PaymentFactoryTest {
 
     @Test
     public void testCreateCreditCardPayment() {
-        PaymentMethod paymentMethod = PaymentFactory.getPaymentMethod("credit");
+        PaymentMethod paymentMethod = PaymentMethod.getPaymentMethod("credit");
         assertNotNull(paymentMethod);
         assertTrue(paymentMethod instanceof CreditCardPayment);
     }

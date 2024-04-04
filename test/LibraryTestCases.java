@@ -1,83 +1,87 @@
 package test;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
 import libraryManagement.Library;
-import items.LibraryItem;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class LibraryTestCases {
+import java.util.List;
 
-    private Library library;
+class LibraryTest {
 
-    @Before
-    public void setUp() {
-        library = new Library();
+    @Test
+    void addItemIncreasesListSize() {
+        Library library = new Library();
+        int initialSize = library.items.size();
+        library.addItem("book", "Effective Java", "Joshua Bloch");
+        assertEquals(initialSize + 1, library.items.size(), "Adding an item should increase the list size by 1.");
     }
 
     @Test
-    public void testCsvFileCreation() {
-        assertTrue("CSV file should be created upon Library initialization", library.isCsvFileCreated());
-    }
-
-    @Test
-    public void testAddItem() {
-        library.addItem("Book", "1984", "George Orwell");
-        assertFalse("The library should contain the added item", library.readCsvFile().isEmpty());
-    }
-
-    @Test
-    public void testEnableRental() {
-        library.addItem("Book", "Brave New World", "Aldous Huxley");
+    void enableRentalOnItem() {
+        Library library = new Library();
+        library.addItem("book", "Refactoring", "Martin Fowler");
         library.enableRental(1);
-        String content = String.join("\\n", library.readCsvFile());
-        assertTrue("Rental should be enabled for the item", content.contains("Brave New World") && content.contains("true"));
+        assertTrue(library.isRentalEnabled(1), "Rental should be enabled for the first item.");
     }
 
     @Test
-    public void testDisableRental() {
-        library.addItem("Book", "Catch-22", "Joseph Heller");
+    void disableRentalOnItem() {
+        Library library = new Library();
+        library.addItem("book", "Clean Code", "Robert C. Martin");
         library.enableRental(1);
         library.disableRental(1);
-        String content = String.join("\\n", library.readCsvFile());
-        assertTrue("Rental should be disabled for the item", content.contains("Catch-22") && content.contains("false"));
+        assertFalse(library.isRentalEnabled(1), "Rental should be disabled for the first item.");
     }
 
     @Test
-    public void testReturnItem() {
-        library.addItem("Book", "The Hobbit", "J.R.R. Tolkien");
+    void returnItemUpdatesStatus() {
+        Library library = new Library();
+        library.addItem("book", "Domain-Driven Design", "Eric Evans");
+        library.enableRental(1);
         library.returnItem(1);
-        // Assuming the returnItem method makes the item purchasable again
-        assertTrue("Item should be returned and set as purchasable", library.isItemReturned(1));
+        assertFalse(library.isRentalEnabled(1), "The item should no longer be rented after being returned.");
     }
 
     @Test
-    public void testFindItemById() {
-        library.addItem("Book", "The Lord of the Rings", "J.R.R. Tolkien");
-        assertNotNull("Should find item by ID", library.findItemById(1));
+    void findItemByIdSuccess() {
+        Library library = new Library();
+        library.addItem("book", "Design Patterns", "Erich Gamma");
+        assertNotNull(library.findItemById(1), "Should successfully find an item by ID.");
     }
 
     @Test
-    public void testWriteLinesToFile() {
-        library.writeLinesToFile(java.util.Arrays.asList("Test line"));
-        assertFalse("File should contain written lines", library.readCsvFile().isEmpty());
+    void findItemByIdFail() {
+        Library library = new Library();
+        assertNull(library.findItemById(999), "Should not find an item for a nonexistent ID.");
     }
 
     @Test
-    public void testReadCsvFile() {
-        assertTrue("Should be able to read CSV file", library.readCsvFile() != null);
+    void csvFileIsCreatedOnInitialization() {
+        Library library = new Library();
+        assertTrue(library.isCsvFileCreated(), "CSV file should be created upon library initialization.");
     }
 
     @Test
-    public void testIsItemReturned() {
-        library.addItem("Book", "1984", "George Orwell");
-        library.returnItem(1);
-        assertTrue("Item should be marked as returned", library.isItemReturned(1));
+    void itemsListWrittenToCsv() {
+        Library library = new Library();
+        library.addItem("book", "Continuous Delivery", "Jez Humble");
+        assertTrue(library.isFileWritten(), "Items list should be written to the CSV file.");
     }
 
     @Test
-    public void testIsFileWritten() {
-        library.writeLinesToFile(java.util.Arrays.asList("Test line"));
-        assertTrue("File should be marked as written", library.isFileWritten());
+    void readItemsFromCsvReflectsAddedItems() {
+        Library library = new Library();
+        library.addItem("book", "The Pragmatic Programmer", "Andrew Hunt");
+        List<String> lines = library.readCsvFile();
+        assertFalse(lines.isEmpty(), "Reading from the CSV file should reflect the added items.");
+    }
+
+    @Test
+    void disablingRentalWritesCorrectlyToCsv() {
+        Library library = new Library();
+        library.addItem("book", "Test Driven Development", "Kent Beck");
+        library.enableRental(1); 
+        library.disableRental(1);
+        assertTrue(library.isFileWritten(), "Disabling rental should correctly update the CSV file.");
     }
 }

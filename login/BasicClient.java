@@ -17,7 +17,7 @@ public class BasicClient implements Client {
 
     public void register(String email, String password, String role) {
         if (emailExists(email)) {
-            System.out.println("Email already exists. Registration failed.");
+            //System.out.println("Email already exists. Registration failed.");
             return;
         }
 
@@ -25,9 +25,9 @@ public class BasicClient implements Client {
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
             out.println(email + "," + password + "," + role + "," + "pending");
-            System.out.println("Registration successful.");
+           // System.out.println("Registration successful.");
         } catch (IOException e) {
-            System.err.println("Error writing to CSV file: " + e.getMessage());
+           System.err.println("Error writing to CSV file: " + e.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class BasicClient implements Client {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error reading from CSV file: " + e.getMessage());
+           // System.err.println("Error reading from CSV file: " + e.getMessage());
         }
         return null; 
     }

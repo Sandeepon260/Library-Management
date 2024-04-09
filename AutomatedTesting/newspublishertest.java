@@ -4,7 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ RegressionTest0.class, RegressionTest1.class, RegressionTest2.class, RegressionTest3.class, RegressionTest4.class, RegressionTest5.class, RegressionTest6.class, RegressionTest7.class, RegressionTest8.class })
+@Suite.SuiteClasses({ newspublishertest.class, newspublishertest1.class, newspublishertest2.class, newspublishertest3.class,
+	newspublishertest4.class, newspublishertest5.class, newspublishertest6.class, newspublishertest7.class, newspublishertest8.class })
 public class newspublishertest {
 }
 

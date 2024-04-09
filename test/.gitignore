@@ -42,3 +42,8 @@
 /TextbookTest$4.class
 /PaymentTests.class
 /CombinedBookRequestTest.class
+/CreditCardPayment.class
+/DebitCardPayment.class
+/MobileWalletPayment.class
+/PaymentFactory.class
+/PaymentMethod.class

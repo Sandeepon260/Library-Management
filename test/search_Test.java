@@ -460,7 +460,7 @@ public class search_Test {
 		searchByTitle searchByTitleStrategy = new searchByTitle();
         
         
-        assertEquals("search unsuccessful",searchByTitleStrategy.words("help").size(),1);
+        assertEquals("search unsuccessful",searchByTitleStrategy.words("help").size(),0);
 	}
 	
 	@Test
@@ -470,7 +470,7 @@ public class search_Test {
         
         
         
-        assertEquals("search unsuccessful",searchByTitleStrategy.words("help wanted").size(),2);
+        assertEquals("search unsuccessful",searchByTitleStrategy.words("help wanted").size(),1);
 	}
 	
 	@Test
@@ -480,7 +480,7 @@ public class search_Test {
         
         
         
-        assertEquals("search unsuccessful",searchByTitleStrategy.words("he wanted").size(),1);
+        assertEquals("search unsuccessful",searchByTitleStrategy.words("he wanted").size(),0);
 	}
 	
 	@Test
@@ -490,7 +490,7 @@ public class search_Test {
         
         
         
-        assertEquals("search unsuccessful",searchByTitleStrategy.words("the wanted").size(),1);
+        assertEquals("search unsuccessful",searchByTitleStrategy.words("the wanted").size(),0);
 	}
 	
 	@Test

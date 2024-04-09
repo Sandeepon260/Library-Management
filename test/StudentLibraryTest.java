@@ -35,8 +35,8 @@ public class StudentLibraryTest {
     @Test
     public void testFindItemByTitle() {
         // Arrange
-        Book book1 = new Book("Java Basics", "John Doe", "Programming", "123456");
-        Book book2 = new Book("Python Fundamentals", "Jane Smith", "Programming", "789012");
+        Book book1 = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
+        Book book2 = new Book("Python Fundamentals", "Jane Smith", false, false, "Programming", "789012");
         studentLibrary.addItem("book", book1.getTitle(), "Programming, student@example.com");
         studentLibrary.addItem("book", book2.getTitle(), "Programming, another_student@example.com");
 
@@ -56,7 +56,7 @@ public class StudentLibraryTest {
     @Test
     public void testReturnItem() {
         // Arrange
-        Book book = new Book("Java Basics", "John Doe", "Programming", "123456");
+        Book book = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
         studentLibrary.addItem("book", book.getTitle(), "Programming, student@example.com");
         studentLibrary.rentItem(book.getTitle(), "student@example.com");
 
@@ -71,7 +71,7 @@ public class StudentLibraryTest {
     @Test
     public void testRentItem() {
         // Arrange
-        Book book = new Book("Java Basics", "John Doe", "Programming", "123456");
+        Book book = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
 
         // Act
         studentLibrary.addItem("book", book.getTitle(), "Programming, student@example.com");
@@ -86,8 +86,8 @@ public class StudentLibraryTest {
     @Test
     public void testCheckOverdues() {
         // Arrange
-        Book book1 = new Book("Java Basics", "John Doe", "Programming", "123456");
-        Book book2 = new Book("Python Fundamentals", "Jane Smith", "Programming", "789012");
+        Book book1 = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
+        Book book2 = new Book("Python Fundamentals", "Jane Smith", false, false, "Programming", "789012");
         studentLibrary.addItem("book", book1.getTitle(), "Programming, student@example.com");
         studentLibrary.addItem("book", book2.getTitle(), "Programming, student@example.com");
         studentLibrary.rentItem(book1.getTitle(), "student@example.com");

@@ -1,16 +1,18 @@
 package test;
 
 
-import login.NewsletterContentPublisher;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import NewsLetter.*;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
+import NewsLetter.NewsletterService;
+import login.NewsletterContentPublisher;
 
 public class NewsletterServiceTest {
 
@@ -78,4 +80,30 @@ public class NewsletterServiceTest {
         assertTrue(availableNewsletters.contains("Newsletter"));
         assertEquals(1, availableNewsletters.size());
     }
+    
+    @Test
+    public void testRetrievePublisherWithCaseInsensitiveName() {
+        NewsletterContentPublisher publisher = new NewsletterContentPublisher();
+        NewsletterService.registerNewsletter("CaseSensitiveTest", publisher);
+        assertEquals(publisher, NewsletterService.getPublisher("casesensitivetest"));
+    }
+
+    @Test
+    public void testRetrieveAvailableNewslettersIsEmptyInitially() {
+        List<String> availableNewsletters = NewsletterService.getAvailableNewsletters();
+        assertTrue(availableNewsletters.isEmpty());
+    }
+
+    @Test
+    public void testRegisterNullPublisher() {
+        // Based on your setup, this seems to be an expected use case to clear a newsletter entry
+        NewsletterService.registerNewsletter("NullPublisherTest", null);
+        assertNull(NewsletterService.getPublisher("NullPublisherTest"));
+    }
+
+    @Test
+    public void testRetrievePublisherForNullNewsletterName() {
+        assertNull(NewsletterService.getPublisher(null));
+    }
+
 }

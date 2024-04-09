@@ -1,6 +1,5 @@
 package test;
 
-
 import items.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,12 +57,26 @@ class LibraryItemFactoryTest {
         assertEquals("Thriller", item.getTitle(), "Title should match with different input.");
     }
 
-    // Two more tests focusing on item attributes not covered by the type, such as purchasable and rented flags.
     @Test
-    void createBookItemPurchasableFlag() {
-        LibraryItem item = LibraryItemFactory.createItem("book", "A5", "35.00", false, true, "The Pragmatic Programmer", "Andrew Hunt");
-        assertEquals(true, item.isPurchasable(), "Purchasable flag should be true for created book item.");
+    void validateAuthorForBookAndArtistForCD() {
+        LibraryItem bookItem = LibraryItemFactory.createItem("book", "A6", "30.00", false, true, "Data Structures", "John Smith");
+        assertEquals("John Smith", bookItem.getAuthor(), "Author should be correctly attributed for the book.");
+
+        LibraryItem cdItem = LibraryItemFactory.createItem("cd", "C2", "20.00", false, true, "Greatest Hits", "Queen");
+        assertEquals("Queen", cdItem.getAuthor(), "Artist should be correctly attributed for the CD.");
     }
+    @Test
+    void itemTypeIsCorrectlyAssigned() {
+        LibraryItem bookItem = LibraryItemFactory.createItem("book", "A7", "40.00", true, true, "Microservices Architecture", "Sam Newman");
+        assertEquals("Book", bookItem.getItemType(), "Item type should be correctly set as Book.");
+        
+        LibraryItem magazineItem = LibraryItemFactory.createItem("magazine", "A8", "6.50", true, false, "Fashion Today", "Editorial Team");
+        assertEquals("Magazine", magazineItem.getItemType(), "Item type should be correctly set as Magazine.");
+        
+        LibraryItem cdItem = LibraryItemFactory.createItem("cd", "C3", "14.99", true, true, "Born to Run", "Bruce Springsteen");
+        assertEquals("CD", cdItem.getItemType(), "Item type should be correctly set as CD.");
+    }
+
 
     @Test
     void createCDItemRentedFlag() {

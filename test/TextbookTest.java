@@ -1,6 +1,4 @@
 package test;
-
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 import items.Textbook;
@@ -41,24 +39,6 @@ public class TextbookTest {
         assertEquals(2, textbook.getEdition());
     }
 
-//    @Test
-//    public void testObserverAddition() {
-//        Textbook textbook = new Textbook("Data Structures", 1);
-//        FacultyClient faculty = new FacultyClient();
-//        textbook.addObserver(faculty);
-//        assertTrue(textbook.observers.contains(faculty));
-//    }
-
-//    @Test
-//    public void testObserverRemoval() {
-//        Textbook textbook = new Textbook("Data Structures", 1);
-//        FacultyClient faculty = new FacultyClient();
-//        textbook.addObserver(faculty);
-//        textbook.removeObserver(faculty);
-//        assertFalse(textbook.observers.contains(faculty));
-//    }
-
-    // Note: Implementing testNotifyObserversOnEditionUpdate would require Mockito to mock FacultyClient and verify update is called
 
     @Test
     public void testEditionUpdateWithoutChange() {
@@ -72,4 +52,21 @@ public class TextbookTest {
         Textbook textbook = new Textbook("Data Structures", 1);
         assertEquals("Data Structures", textbook.toString());
     }
+    
+
+    @Test
+    public void changeTextbookTitle() {
+        Textbook textbook = new Textbook("Microeconomics", 2);
+        textbook.setTitle("Macroeconomics");
+        assertEquals("Macroeconomics", textbook.getTitle());
+    }
+
+    @Test
+    public void createTextbook() {
+        Textbook textbook = new Textbook("Advanced Mathematics", 1);
+        assertEquals("Advanced Mathematics", textbook.getTitle());
+        assertEquals(1, textbook.getEdition());
+    }
+
+    
 }

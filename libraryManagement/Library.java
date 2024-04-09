@@ -66,7 +66,7 @@ public class Library {
         System.out.println("Rental disabled for item with ID " + itemId);
     }
 
-    private void createCsvFile() {
+    public void createCsvFile() {
         File file = new File(CSV_FILE_PATH);
         if (!file.exists()) {
             try {

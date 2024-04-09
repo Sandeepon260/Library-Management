@@ -1,11 +1,15 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import login.*;
-
-import static org.junit.Assert.*;
+import login.NewsletterContentObserver;
+import login.NewsletterContentPublisher;
 
 public class NewsletterContentPublisherTest {
     private NewsletterContentPublisher publisher;
@@ -101,6 +105,7 @@ public class NewsletterContentPublisherTest {
         assertEquals(expectedContent, contentReceivedByObserver1);
     }
 
+
     @Test
     public void testObserversNotNotifiedAfterUnsubscribe() {
         publisher.subscribe(observer1);
@@ -108,4 +113,16 @@ public class NewsletterContentPublisherTest {
         publisher.publishNewContent("New Content 9");
         assertNull(contentReceivedByObserver1);
     }
+
+    @Test
+    public void testOnlyUnsubscribedObserverDoesNotReceiveUpdate() {
+        publisher.subscribe(observer1);
+        publisher.subscribe(observer2);
+        publisher.unsubscribe(observer1);
+        publisher.publishNewContent("Test 10");
+        assertNull(contentReceivedByObserver1);
+        assertEquals("Test 10", contentReceivedByObserver2);
+    }
+
+
 }

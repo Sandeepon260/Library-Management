@@ -1,15 +1,16 @@
 package test;
 
 
-import org.junit.Before;
-import org.junit.Test;
-
-import NewsLetter.*;
-import login.*;
-
 import static org.junit.Assert.*;
 
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import NewsLetter.NewsletterService;
+import NewsLetter.User;
+import login.NewsletterContentPublisher;
 
 public class UserTest {
     private User user;
@@ -88,4 +89,33 @@ public class UserTest {
 
         assertTrue(user.getSubscriptions().isEmpty());
     }
+    
+    @Test
+    public void testSubscribeToNonexistentNewsletter() {
+        String nonexistentNewsletterName = "Nonexistent";
+        user.subscribeToNewsletter(nonexistentNewsletterName);
+        assertFalse(user.getSubscriptions().contains(nonexistentNewsletterName));
+    }
+
+    @Test
+    public void testUnsubscribeFromNonexistentNewsletter() {
+        String nonexistentNewsletterName = "Nonexistent";
+        user.unsubscribeFromNewsletter(nonexistentNewsletterName);
+        assertFalse(user.getSubscriptions().contains(nonexistentNewsletterName));
+    }
+    
+    @Test
+    public void testSubscribeTwiceToSameNewsletter() {
+        NewsletterContentPublisher publisher = new NewsletterContentPublisher();
+        NewsletterService.registerNewsletter(testNewsletterName, publisher);
+        user.subscribeToNewsletter(testNewsletterName);
+        user.subscribeToNewsletter(testNewsletterName);
+        assertEquals(1, user.getSubscriptions().size());
+    }
+
+    @Test
+    public void testGetEmail() {
+        assertEquals("user@example.com", user.getEmail());
+    }
+
 }

@@ -40,30 +40,38 @@ class RentalManagerTest {
         assertTrue(RentalManager.isDueSoonOrOverdue(dueToday), "Rentals due today should be considered due soon.");
     }
 
-    // Placeholder for a test that requires fetching and parsing the rentals.csv file.
-    // This would typically involve mocking file operations or using a temporary file.
+  
     @Test
-    void testReadRentalsFromFileNotImplemented() {
-        // Assuming functionality to read rentals from a file is implemented.
+    public void rentalDueTodayIsDueSoon() {
+        LocalDate dueToday = LocalDate.now();
+        assertTrue(RentalManager.isDueSoonOrOverdue(dueToday), "Rentals due today should be considered as due soon.");
+    }
+
+
+    @Test
+    public void rentalDueTomorrowIsDueSoon() {
+        LocalDate dueTomorrow = LocalDate.now().plusDays(1);
+        assertTrue(RentalManager.isDueSoonOrOverdue(dueTomorrow), "Rentals due tomorrow should be considered as due soon.");
     }
 
     @Test
-    void testAddRentalToFileNotImplemented() {
-        // Test adding a rental record to the file, verifying the file's contents afterward.
+    public void rentalSignificantlyOverdueIsIdentified() {
+        LocalDate significantlyOverdue = LocalDate.now().minusDays(10);
+        assertTrue(RentalManager.isDueSoonOrOverdue(significantlyOverdue), "Rentals significantly overdue should be correctly identified as overdue.");
     }
 
-    @Test
-    void testRemoveRentalFromFileNotImplemented() {
-        // Test removing a rental from the file, verifying the file's contents afterward.
-    }
 
     @Test
-    void testUpdateRentalInFileNotImplemented() {
-        // Test updating a rental in the file (e.g., extending its due date).
+    public void rentalNotDueSoonNorOverdue() {
+        LocalDate dueInFuture = LocalDate.now().plusDays(2);
+        assertFalse(RentalManager.isDueSoonOrOverdue(dueInFuture), "Rentals with a due date beyond tomorrow should not be considered as due soon or overdue.");
     }
 
+
     @Test
-    void testFetchRentalsForMultipleUsersNotImplemented() {
-        // Assuming functionality to handle rentals for multiple users, verify correct fetching based on userId.
+    public void rentalOverdueIsCorrectlyIdentified() {
+        LocalDate overdueDate = LocalDate.now().minusDays(1);
+        assertTrue(RentalManager.isDueSoonOrOverdue(overdueDate), "Rentals past their due date should be considered overdue.");
     }
+
 }

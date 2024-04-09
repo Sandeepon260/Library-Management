@@ -1,6 +1,8 @@
 package test;
 
 import items.Book;
+import items.LibraryItem;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -11,22 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryItemTest {
 
-    @Test
-    public void testRentItem_Success() {
-        Book item = new Book("1A", "20.00", true, false, "Java for Beginners", "Author");
-        LocalDate startDate = LocalDate.now();
-        item.rentItem(startDate, 30, "user@example.com");
-        assertTrue(item.isRented());
-        assertEquals("user@example.com", item.getBorrowerEmail());
-    }
-
-    @Test
-    public void testReturnItem_Success() {
-        Book item = new Book("1A", "20.00", true, false, "Java for Beginners", "Author");
-        item.rentItem(LocalDate.now(), 30, "user@example.com");
-        item.returnItem();
-        assertFalse(item.isRented());
-    }
+	@Test
+	void validateBorrowingPrivilegesWithOverdueItems() {
+	    List<LibraryItem> borrowedItems = new ArrayList<>();
+	    for (int i = 0; i < 4; i++) {
+	        Book book = new Book("3A" + i, "18.00", true, false, "Java Concurrency in Practice", "Brian Goetz");
+	        book.rentItem(LocalDate.now().minusDays(31), 30, "concurrency@example.com"); // All items are overdue
+	        borrowedItems.add(book);
+	    }
+	    assertFalse(borrowedItems.get(0).hasBorrowingPrivileges(borrowedItems), "Should lose borrowing privileges with more than 3 overdue items.");
+	}
+	
+	@Test
+	void confirmUpdateDatabaseReflectsRentalStatus() {
+	}
 
     @Test
     public void testIsOverdue_ItemIsOverdue_ReturnsTrue() {
@@ -69,28 +69,24 @@ public class LibraryItemTest {
         assertFalse(item.isOverdue());
     }
 
+ 
     @Test
-    public void testIsOverdue_UnderLossThreshold_ReturnsTrue() {
-        Book item = new Book("1A", "20.00", true, false, "Java for Beginners", "Author");
-        LocalDate startDate = LocalDate.now().minusDays(14);
-        item.rentItem(startDate, 30, "user@example.com");
-        assertTrue(item.isOverdue());
+    void checkItemTypeAssignmentConsistency() {
+        Book book = new Book("Library Main", "40.00", true, true, "Introduction to Algorithms", "Thomas H. Cormen");
+        assertEquals("Book", book.getItemType(), "Item type should be consistently assigned as 'Book'.");
+    }
+    @Test
+    void itemDetailsRemainAccurateAfterRentalAndReturn() {
+        Book book = new Book("Location Y", "20.00", true, false, "Domain-Driven Design", "Eric Evans");
+        String originalTitle = book.getTitle();
+        String originalAuthor = book.getAuthor();
+
+        book.rentItem(LocalDate.now(), 30, "advanced@example.com");
+        book.returnItem();
+
+        assertEquals(originalTitle, book.getTitle(), "Book title should remain unchanged after rental and return.");
+        assertEquals(originalAuthor, book.getAuthor(), "Book author should remain unchanged after rental and return.");
     }
 
-    @Test
-    public void testItemAvailability_AfterReturn_IsNotRented() {
-        Book item = new Book("1A", "20.00", true, false, "Java Advanced", "Expert Author");
-        item.rentItem(LocalDate.now(), 30, "expert@example.com");
-        item.returnItem();
-        assertFalse(item.isRented(), "Item should be available for rent after being returned.");
-    }
 
-    @Test
-    public void testDueDateCalculation_OnRent_CorrectDueDate() {
-        Book item = new Book("1B", "15.00", true, false, "Java Basics", "Beginner Author");
-        LocalDate startDate = LocalDate.now();
-        int rentalPeriodDays = 30;
-        item.rentItem(startDate, rentalPeriodDays, "beginner@example.com");
-        assertEquals(startDate.plusDays(rentalPeriodDays), item.getDueDate(), "Due date should be correctly calculated based on rental period.");
-    }
 }

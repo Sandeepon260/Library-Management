@@ -1,74 +1,106 @@
 package test;
-
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import request.BookRequest;
 import request.BookRequestManager;
+import request.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BookRequestManagerTest {
-    private final String TEST_CSV_FILE = "test_book_requests.csv";
+class CombinedBookRequestTest {
+    private final String csvFilePath = "book_requests.csv";
 
     @BeforeEach
-    public void setUp() throws IOException {
-        // Create a new test CSV file
-        File file = new File(TEST_CSV_FILE);
-        file.createNewFile();
+    void setUp() throws IOException {
+        new PrintWriter(csvFilePath).close();
+        
     }
 
     @AfterEach
-    public void tearDown() {
-        // Delete the test CSV file after each test
-        File file = new File(TEST_CSV_FILE);
-        file.delete();
+    void tearDown() throws IOException {
+        Files.deleteIfExists(Paths.get(csvFilePath));
     }
 
     @Test
-    public void testSaveNewRequest() {
-        // Act
-        BookRequestManager.saveNewRequest("Test Book", "John Doe", "Fiction", 1);
-
-        // Assert
-        List<String> pendingRequests = BookRequestManager.getAllPendingRequests();
-        assertEquals(1, pendingRequests.size());
-        assertTrue(pendingRequests.get(0).contains("Test Book"));
+    void addBookRequestToQueue() {
+        BookRequestQueue queue = new BookRequestQueue();
+        queue.addBookRequest(new BookRequest("Sample Book", "User1", 1));
+        assertFalse(queue.isEmpty());
     }
 
     @Test
-    public void testGetAllPendingRequests() {
-        // Arrange
-        BookRequestManager.saveNewRequest("Test Book", "John Doe", "Fiction", 1);
-        BookRequestManager.saveNewRequest("Another Book", "Jane Smith", "Non-Fiction", 2);
+    void processBookRequestsFromQueue() {
+        BookRequestQueue queue = new BookRequestQueue();
+        queue.addBookRequest(new BookRequest("Sample Book", "User1", 1));
+        queue.processRequests();
+        assertTrue(queue.isEmpty());
+    }
 
-        // Act
+    @Test
+    void saveNewRequestToCSV() throws IOException {
+        BookRequestManager.saveNewRequest("Sample Book", "User1", "fiction", 1);
+        List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+        assertTrue(lines.contains("Sample Book,User1,fiction,1,pending"));
+    }
+
+    @Test
+    void getAllPendingRequestsAfterSave() throws IOException {
+        BookRequestManager.saveNewRequest("Sample Book", "User1", "fiction", 1);
         List<String> pendingRequests = BookRequestManager.getAllPendingRequests();
+        assertTrue(pendingRequests.stream().anyMatch(line -> line.contains("Sample Book,User1,fiction,1,pending")));
+    }
 
-        // Assert
+    @Test
+    void updateRequestStatus() throws IOException {
+        BookRequestManager.saveNewRequest("Sample Book", "User1", "fiction", 1);
+        BookRequestManager.updateRequestStatus("Sample Book,User1,fiction,1", "completed");
+        List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+        assertTrue(lines.stream().anyMatch(line -> line.contains("completed")));
+    }
+
+    @Test
+    void queueIsEmptyWithoutAdding() {
+        BookRequestQueue queue = new BookRequestQueue();
+        assertTrue(queue.isEmpty());
+    }
+
+    @Test
+    void addMultipleRequestsToQueue() {
+        BookRequestQueue queue = new BookRequestQueue();
+        queue.addBookRequest(new BookRequest("Book1", "User2", 2));
+        queue.addBookRequest(new BookRequest("Book2", "User3", 3));
+        assertFalse(queue.isEmpty());
+    }
+
+    @Test
+    void saveMultipleRequestsToCSV() throws IOException {
+        BookRequestManager.saveNewRequest("Book1", "User2", "non-fiction", 2);
+        BookRequestManager.saveNewRequest("Book2", "User3", "biography", 3);
+        List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+        assertTrue(lines.size() >= 2);
+    }
+
+    @Test
+    void getAllPendingRequestsMultiple() throws IOException {
+        BookRequestManager.saveNewRequest("Book1", "User2", "non-fiction", 2);
+        BookRequestManager.saveNewRequest("Book2", "User3", "biography", 3);
+        List<String> pendingRequests = BookRequestManager.getAllPendingRequests();
         assertEquals(2, pendingRequests.size());
-        assertTrue(pendingRequests.get(0).contains("Test Book"));
-        assertTrue(pendingRequests.get(1).contains("Another Book"));
     }
 
     @Test
-    public void testUpdateRequestStatus() {
-        // Arrange
-        BookRequestManager.saveNewRequest("Test Book", "John Doe", "Fiction", 1);
-        List<String> pendingRequests = BookRequestManager.getAllPendingRequests();
-        String requestDetails = pendingRequests.get(0);
-        String status = "completed";
-
-        // Act
-        BookRequestManager.updateRequestStatus(requestDetails, status);
-
-        // Assert
-        List<String> updatedRequests = BookRequestManager.getAllPendingRequests();
-        assertEquals(0, updatedRequests.size()); // No pending requests
+    void updateMultipleRequestStatuses() throws IOException {
+        BookRequestManager.saveNewRequest("Book1", "User2", "non-fiction", 2);
+        BookRequestManager.saveNewRequest("Book2", "User3", "biography", 3);
+        BookRequestManager.updateRequestStatus("Book1,User2,non-fiction,2", "completed");
+        BookRequestManager.updateRequestStatus("Book2,User3,biography,3", "completed");
+        List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+        assertTrue(lines.stream().allMatch(line -> line.contains("completed")));
     }
 }
-

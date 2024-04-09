@@ -17,3 +17,16 @@
 71,CD,hello,me,true,me,true
 72,Book,novel,me,true,me,true
 73,Magazine,magazine,me,true,me,true
+2,Book,Programming,Programming, student@example.com,false,Programming, student@example.com,false
+5,Book,Programming,Programming, student@example.com,false,Programming, student@example.com,false
+7,Book,Programming,Programming, student@example.com,false,Programming, student@example.com,false
+10,Book,Programming,Programming, student@example.com,false,Programming, student@example.com,false
+1,Book,Clean Code,,false,,false
+2,Book,Math Textbook,Math, 101, john@example.com,false,Math, 101, john@example.com,false
+3,Book,Test Driven Development,TDD, 201, student@uni.edu,false,TDD, 201, student@uni.edu,false
+1,Book,Clean Code,,false,,false
+2,Book,Math Textbook,Math, 101, ,false,Math, 101, ,false
+3,Book,Test Driven Development,TDD, 201, student@uni.edu,false,TDD, 201, student@uni.edu,false
+1,Book,Clean Code,,false,,false
+2,Book,Math Textbook,Math, 101,false,Math, 101,false
+3,Book,Test Driven Development,TDD, 201, student@uni.edu,false,TDD, 201, student@uni.edu,false

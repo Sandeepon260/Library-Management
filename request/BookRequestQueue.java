@@ -1,6 +1,7 @@
 package request;
 
 import java.util.PriorityQueue;
+import java.util.function.BooleanSupplier;
 
 public class BookRequestQueue {
     private PriorityQueue<BookRequest> queue;
@@ -21,4 +22,8 @@ public class BookRequestQueue {
 
         }
     }
+
+	public boolean isEmpty() {
+		return queue.isEmpty()==true;
+	}
 }

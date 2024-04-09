@@ -1,39 +1,72 @@
  package test;
-
 import org.junit.jupiter.api.Test;
 
 import request.BookRequest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BookRequestTest {
+class BookRequestTest {
 
     @Test
-    public void testGetters() {
-        // Arrange
-        String bookTitle = "The Great Gatsby";
-        String requester = "John Doe";
-        int priority = 3;
-
-        // Act
-        BookRequest request = new BookRequest(bookTitle, requester, priority);
-
-        // Assert
-        assertEquals(bookTitle, request.getBookTitle());
-        assertEquals(requester, request.getRequester());
-        assertEquals(priority, request.getPriority());
+    void constructBookRequest() {
+        BookRequest request = new BookRequest("The Alchemist", "User1", 1);
+        assertNotNull(request);
     }
 
     @Test
-    public void testCompareTo() {
-        // Arrange
-        BookRequest request1 = new BookRequest("Book 1", "User 1", 5);
-        BookRequest request2 = new BookRequest("Book 2", "User 2", 3);
-        BookRequest request3 = new BookRequest("Book 3", "User 3", 7);
+    void getTitle() {
+        BookRequest request = new BookRequest("1984", "User2", 2);
+        assertEquals("1984", request.getBookTitle());
+    }
 
-        // Act & Assert
-        assertEquals(1, request1.compareTo(request2)); // Higher priority request1 > request2
-        assertEquals(-1, request2.compareTo(request3)); // Higher priority request2 < request3
-        assertEquals(0, request1.compareTo(request1)); // Same priority
+    @Test
+    void getRequester() {
+        BookRequest request = new BookRequest("The Great Gatsby", "User3", 3);
+        assertEquals("User3", request.getRequester());
+    }
+
+    @Test
+    void getPriority() {
+        BookRequest request = new BookRequest("Moby Dick", "User4", 4);
+        assertEquals(4, request.getPriority());
+    }
+
+    @Test
+    void compareSamePriority() {
+        BookRequest request1 = new BookRequest("Book A", "User5", 5);
+        BookRequest request2 = new BookRequest("Book B", "User6", 5);
+        assertEquals(0, request1.compareTo(request2));
+    }
+
+    @Test
+    void compareHigherPriority() {
+        BookRequest request1 = new BookRequest("Book C", "User7", 1);
+        BookRequest request2 = new BookRequest("Book D", "User8", 2);
+        assertTrue(request1.compareTo(request2) < 0);
+    }
+
+    @Test
+    void compareLowerPriority() {
+        BookRequest request1 = new BookRequest("Book E", "User9", 2);
+        BookRequest request2 = new BookRequest("Book F", "User10", 1);
+        assertTrue(request1.compareTo(request2) > 0);
+    }
+
+    @Test
+    void constructWithPositivePriority() {
+        BookRequest request = new BookRequest("Book G", "User11", 21);
+        assertEquals(21, request.getPriority());
+    }
+
+    @Test
+    void compareWithNegativePriority() {
+        BookRequest request = new BookRequest("Book I", "User13", -1);
+        assertEquals(-1, request.getPriority());
+    }
+
+    @Test
+    void constructWithZeroPriority() {
+        BookRequest request = new BookRequest("Book J", "User14", 0);
+        assertEquals(0, request.getPriority());
     }
 }

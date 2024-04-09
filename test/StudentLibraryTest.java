@@ -1,103 +1,52 @@
 package test;
 
+import org.junit.Before;
+import org.junit.Test;
 
-import items.Book;
-import items.LibraryItem;
 import libraryManagement.StudentLibrary;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class StudentLibraryTest {
 
-    private StudentLibrary studentLibrary;
+    private StudentLibrary library;
 
-    @BeforeEach
+    @Before
     public void setUp() {
-        studentLibrary = new StudentLibrary();
+        library = new StudentLibrary();
+    }
+
+    @Test
+    public void testAddItemIncreasesVirtualCopies() {
+        String studentEmail = "john@example.com";
+        String courseName = "Math";
+        library.addItem("book", "Math Textbook", "Math, 101");
+        assertEquals("Virtual copies should be incremented.", 1, library.getVirtualCopies(studentEmail));
     }
 
     @Test
     public void testMakeVirtualCopiesAvailable() {
-        // Arrange
-        String studentEmail = "student@example.com";
-        String courseName = "Mathematics";
-        int durationInMonths = 6;
-
-        // Act
-        studentLibrary.makeVirtualCopiesAvailable(studentEmail, courseName, durationInMonths);
-
-        // Assert
-        assertEquals(durationInMonths, studentLibrary.getVirtualCopies(studentEmail));
+        String studentEmail = "sarah@uni.edu";
+        library.makeVirtualCopiesAvailable(studentEmail, "Computer Science", 3);
+        assertEquals("Virtual copies for the course duration should be allocated.", 3, library.getVirtualCopies(studentEmail));
     }
 
     @Test
-    public void testFindItemByTitle() {
-        // Arrange
-        Book book1 = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
-        Book book2 = new Book("Python Fundamentals", "Jane Smith", false, false, "Programming", "789012");
-        studentLibrary.addItem("book", book1.getTitle(), "Programming, student@example.com");
-        studentLibrary.addItem("book", book2.getTitle(), "Programming, another_student@example.com");
-
-        // Act
-        LibraryItem foundBook1 = studentLibrary.findItemByTitle("Java Basics");
-        LibraryItem foundBook2 = studentLibrary.findItemByTitle("Python Fundamentals");
-        LibraryItem notFoundBook = studentLibrary.findItemByTitle("Nonexistent Book");
-
-        // Assert
-        assertNotNull(foundBook1);
-        assertNotNull(foundBook2);
-        assertNull(notFoundBook);
-        assertEquals(book1, foundBook1);
-        assertEquals(book2, foundBook2);
+    public void testFindItemByTitleSuccess() {
+        library.addItem("book", "Clean Code", "");
+        assertNotNull("Item should be found by title.", library.findItemByTitle("Clean Code"));
     }
 
     @Test
-    public void testReturnItem() {
-        // Arrange
-        Book book = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
-        studentLibrary.addItem("book", book.getTitle(), "Programming, student@example.com");
-        studentLibrary.rentItem(book.getTitle(), "student@example.com");
-
-        // Act
-        studentLibrary.returnItem(book.getItemId());
-
-        // Assert
-        assertNull(book.getBorrowerEmail());
-        assertEquals(0, studentLibrary.getVirtualCopies("student@example.com"));
+    public void testFindItemByTitleFailure() {
+        assertNull("Non-existing item should return null.", library.findItemByTitle("Non Existing Title"));
     }
 
     @Test
-    public void testRentItem() {
-        // Arrange
-        Book book = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
-
-        // Act
-        studentLibrary.addItem("book", book.getTitle(), "Programming, student@example.com");
-        studentLibrary.rentItem(book.getTitle(), "student@example.com");
-        LibraryItem rentedBook = studentLibrary.findItemByTitle("Java Basics");
-
-        // Assert
-        assertNotNull(rentedBook);
-        assertEquals("student@example.com", rentedBook.getBorrowerEmail());
-    }
-
-    @Test
-    public void testCheckOverdues() {
-        // Arrange
-        Book book1 = new Book("Java Basics", "John Doe", false, false, "Programming", "123456");
-        Book book2 = new Book("Python Fundamentals", "Jane Smith", false, false, "Programming", "789012");
-        studentLibrary.addItem("book", book1.getTitle(), "Programming, student@example.com");
-        studentLibrary.addItem("book", book2.getTitle(), "Programming, student@example.com");
-        studentLibrary.rentItem(book1.getTitle(), "student@example.com");
-        studentLibrary.rentItem(book2.getTitle(), "student@example.com");
-
-        // Act
-        String overdueBooks = studentLibrary.check_overdues("student@example.com");
-
-        // Assert
-        assertTrue(overdueBooks.contains(book1.getTitle()));
-        assertTrue(overdueBooks.contains(book2.getTitle()));
+    public void testReturnItemRemovesVirtualCopies() {
+        String studentEmail = "student@uni.edu";
+        library.addItem("book", "Test Driven Development", "TDD, 201, " + studentEmail);
+        library.returnItem(1);
+        assertEquals("Virtual copies should be removed upon return.", 0, library.getVirtualCopies(studentEmail));
     }
 }

@@ -6,6 +6,7 @@ public class BookRequest implements Comparable<BookRequest> {
     private int priority; // Lower numbers indicate higher priority
 
     public BookRequest(String bookTitle, String requester, int priority) {
+    	
         this.bookTitle = bookTitle;
         this.requester = requester;
         this.priority = priority;

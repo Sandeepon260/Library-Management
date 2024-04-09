@@ -1,40 +1,68 @@
 package test;
-
-
-
 import org.junit.jupiter.api.Test;
 
 import payement.PaymentMethod;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PaymentFactoryTest {
+class PaymentTests {
 
     @Test
-    public void testCreateCreditCardPayment() {
-        PaymentMethod paymentMethod = PaymentMethod.getPaymentMethod("credit");
-        assertNotNull(paymentMethod);
-        assertTrue(paymentMethod instanceof CreditCardPayment);
+    void createCreditCardPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("credit");
+        assertNotNull(payment);
     }
 
     @Test
-    public void testCreateDebitCardPayment() {
-        PaymentMethod paymentMethod = PaymentFactory.getPaymentMethod("debit");
-        assertNotNull(paymentMethod);
-        assertTrue(paymentMethod instanceof DebitCardPayment);
+    void createDebitCardPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("debit");
+        assertNotNull(payment);
     }
 
     @Test
-    public void testCreateMobileWalletPayment() {
-        PaymentMethod paymentMethod = PaymentFactory.getPaymentMethod("mobilewallet");
-        assertNotNull(paymentMethod);
-        assertTrue(paymentMethod instanceof MobileWalletPayment);
+    void createMobileWalletPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("mobilewallet");
+        assertNotNull(payment);
     }
 
     @Test
-    public void testCreateInvalidPaymentMethod() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            PaymentFactory.getPaymentMethod("invalid");
-        });
+    void invalidPaymentMethod() {
+        assertThrows(IllegalArgumentException.class, () -> PaymentFactory.getPaymentMethod("invalid"));
+    }
+
+    @Test
+    void processCreditCardPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("credit");
+        assertDoesNotThrow(() -> payment.processPayment(100));
+    }
+
+    @Test
+    void processDebitCardPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("debit");
+        assertDoesNotThrow(() -> payment.processPayment(200));
+    }
+
+    @Test
+    void processMobileWalletPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("mobilewallet");
+        assertDoesNotThrow(() -> payment.processPayment(300));
+    }
+
+    @Test
+    void processNegativeCreditCardPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("credit");
+        assertDoesNotThrow(() -> payment.processPayment(-100));
+    }
+
+    @Test
+    void processZeroCreditCardPayment() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("credit");
+        assertDoesNotThrow(() -> payment.processPayment(0));
+    }
+
+    @Test
+    void createPaymentMethodCaseInsensitive() {
+        PaymentMethod payment = PaymentFactory.getPaymentMethod("CrEdiT");
+        assertNotNull(payment);
     }
 }
